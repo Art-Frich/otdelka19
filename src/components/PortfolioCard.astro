@@ -1,37 +1,22 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import BeforeAfter from '@/components/BeforeAfter.astro';
+import { projectView } from '@/lib/projects';
 
 interface Props {
   project: CollectionEntry<'projects'>;
 }
 const { project } = Astro.props;
-const d = project.data;
+const { d, titleLine, metaLine, isCompare, cover, gallery, href, comparePayload, galleryPayload } =
+  projectView(project);
 
-const titleLine = d.area ? `${d.title}, ${d.area} м²` : d.title;
-const metaLine = [d.district, d.type, d.duration].filter(Boolean).join(' · ');
-const href = `/portfolio/${project.id}/`;
-
-const isCompare = !!(d.beforeImage && d.afterImage);
-const cover = d.cover || d.afterImage || d.gallery?.[0]?.src;
-
-// Список фото для галерейного лайтбокса
-const galleryImages: { src: string; alt: string }[] = [];
-if (cover) galleryImages.push({ src: cover, alt: d.title });
-for (const g of d.gallery ?? []) {
-  if (g.src !== cover) galleryImages.push({ src: g.src, alt: g.alt || d.title });
-}
-
-const payload = isCompare
-  ? { mode: 'compare', before: d.beforeImage, after: d.afterImage, title: titleLine }
-  : { mode: 'gallery', images: galleryImages, title: titleLine };
-
+const payload = isCompare ? comparePayload : galleryPayload();
 const expandLabel = isCompare
   ? 'До / После'
-  : galleryImages.length > 1
-    ? `${galleryImages.length} фото`
+  : gallery.length > 1
+    ? `${gallery.length} фото`
     : 'Открыть';
-const hasMedia = isCompare || galleryImages.length > 0;
+const hasMedia = isCompare || gallery.length > 0;
 ---
 
 <article
@@ -65,7 +50,7 @@ const hasMedia = isCompare || galleryImages.length > 0;
       hasMedia && (
         <button
           type="button"
-          data-lb={JSON.stringify(payload)}
+          data-lb={payload}
           aria-label="Открыть на весь экран"
           class="absolute bottom-3 right-3 z-20 inline-flex items-center gap-1.5 rounded-full bg-fg/75 px-3 py-1.5 text-xs font-semibold text-bg backdrop-blur transition hover:bg-fg"
         >

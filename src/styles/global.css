@@ -23,6 +23,13 @@
   --radius: 0.875rem;
 }
 
+/* Контейнер контента — единая ширина/отступы (убирает повтор mx-auto max-w px) */
+@utility container-x {
+  margin-inline: auto;
+  max-width: 1120px;
+  padding-inline: 1.5rem;
+}
+
 html {
   scroll-behavior: smooth;
 }

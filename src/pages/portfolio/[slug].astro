@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Base from '@/layouts/Base.astro';
 import BeforeAfter from '@/components/BeforeAfter.astro';
 import Button from '@/components/Button.astro';
+import { projectView } from '@/lib/projects';
 import { breadcrumbSchema, projectSchema } from '@/lib/jsonld';
 
 export async function getStaticPaths() {
@@ -11,34 +12,17 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const d = project.data;
+const { d, titleLine, isCompare, cover, gallery, comparePayload, galleryPayload } =
+  projectView(project);
 const { Content } = await render(project);
 const base = Astro.site?.href ?? 'https://otdelka19.ru/';
 
-const titleLine = d.area ? `${d.title}, ${d.area} м²` : d.title;
 const metaItems = [d.type, d.district, d.duration].filter(Boolean);
-const isCompare = !!(d.beforeImage && d.afterImage);
-const cover = d.cover || d.afterImage || d.gallery?.[0]?.src;
-
-const galleryImages: { src: string; alt: string }[] = [];
-if (cover) galleryImages.push({ src: cover, alt: d.title });
-for (const g of d.gallery ?? []) {
-  if (g.src !== cover) galleryImages.push({ src: g.src, alt: g.alt || d.title });
-}
-
-const galleryPayload = (start: number) =>
-  JSON.stringify({ mode: 'gallery', images: galleryImages, title: titleLine, start });
-const comparePayload = JSON.stringify({
-  mode: 'compare',
-  before: d.beforeImage,
-  after: d.afterImage,
-  title: titleLine,
-});
 
 // миниатюры под героем
 const thumbs = isCompare
-  ? galleryImages.map((g, i) => ({ ...g, start: i }))
-  : galleryImages.slice(1).map((g, i) => ({ ...g, start: i + 1 }));
+  ? gallery.map((g, i) => ({ ...g, start: i }))
+  : gallery.slice(1).map((g, i) => ({ ...g, start: i + 1 }));
 
 const crumbs = breadcrumbSchema(base, [
   { name: 'Главная', item: '/' },
