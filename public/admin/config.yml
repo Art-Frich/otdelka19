@@ -111,7 +111,21 @@ collections:
           - { name: brand, label: 'Бренд', widget: string }
           - { name: slogan, label: 'Слоган', widget: string, required: false }
           - { name: masterName, label: 'Имя мастера', widget: string, required: false }
-          - { name: masterPhoto, label: 'Фото мастера', widget: image, required: false }
+          - name: masterPhotos
+            label: 'Фото мастера (галерея)'
+            widget: list
+            required: false
+            summary: '{{fields.alt}}'
+            hint: 'Листаются стрелками в блоке «О мастере». Первое фото — главное. Можно добавлять, менять и двигать. Грузятся в папку мастера.'
+            fields:
+              - {
+                  name: src,
+                  label: 'Фото',
+                  widget: image,
+                  media_folder: '/public/img/master',
+                  public_folder: '/img/master',
+                }
+              - { name: alt, label: 'Подпись (alt, для SEO)', widget: string, required: false }
           - { name: about, label: 'О мастере (текст)', widget: text, required: false }
           - { name: phone, label: 'Телефон', widget: string }
           - name: socials
