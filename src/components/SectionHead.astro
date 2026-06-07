@@ -4,10 +4,10 @@ interface Props {
   eyebrow?: string;
   title: string;
   desc?: string;
-  as?: 'h1' | 'h2';
+  tag?: 'h1' | 'h2';
   class?: string;
 }
-const { eyebrow, title, desc, as: tag = 'h2', class: className } = Astro.props;
+const { eyebrow, title, desc, tag = 'h2', class: className } = Astro.props;
 const Heading = tag;
 const size = tag === 'h1' ? 'text-[clamp(30px,4vw,48px)]' : 'text-[clamp(26px,3.4vw,38px)]';
 ---
