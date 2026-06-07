@@ -1,6 +1,6 @@
 ---
 title: Капитальный ремонт квартиры
-type: под ключ
+type: Под ключ
 summary: 'Квартира в работе: демонтаж, стяжка и наливной пол, разводка. Показываю процесс честно — до и в ходе ремонта.'
 district: Абакан
 beforeImage: /img/projects/kvartira-chernovaya/before.webp

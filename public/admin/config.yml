@@ -47,12 +47,15 @@ collections:
     sortable_fields: ['order', 'publishDate', 'title']
     fields:
       - { name: title, label: 'Заголовок (объект)', widget: string, hint: 'Напр.: 2-комнатная квартира' }
-      - {
-          name: type,
-          label: 'Тип работ',
-          widget: select,
-          options: ['под ключ', 'чистовая отделка', 'санузел', 'косметический ремонт'],
-        }
+      - name: type
+        label: 'Тип работ'
+        widget: relation
+        collection: settings
+        file: site
+        value_field: 'services.*.title'
+        search_fields: ['services.*.title']
+        display_fields: ['services.*.title']
+        hint: 'Берётся из списка услуг (Настройки → Услуги) — единый источник, без дублей.'
       - { name: summary, label: 'Краткое описание', widget: text }
       - { name: area, label: 'Площадь, м²', widget: number, required: false, value_type: int, min: 1 }
       - { name: district, label: 'Район / адрес', widget: string, required: false }
