@@ -1,25 +1,16 @@
 ---
-import site from '@/data/site.json';
 import Button from '@/components/Button.astro';
+import MasterCollage from '@/components/MasterCollage.astro';
+import site from '@/data/site.json';
 import { telHref } from '@/lib/contacts';
-import { withBase } from '@/lib/url';
-const photo = withBase(site.masterPhoto || '/img/master/portrait.webp');
-const alt = `Мастер-отделочник ${site.masterName}, Абакан`;
 ---
 
 {
   site.masterName && (
     <section id="o-mastere" class="py-[72px]">
       <div class="container-x grid grid-cols-1 items-center gap-8 md:grid-cols-[0.8fr_1.2fr] md:gap-10">
-        {/* Фото — десктоп, слева */}
-        <div class="mx-auto hidden w-full max-w-[360px] md:order-1 md:block">
-          <img
-            src={photo}
-            alt={alt}
-            loading="lazy"
-            class="w-full rounded-2xl border border-border object-cover shadow-[0_30px_60px_-30px_rgba(0,0,0,0.3)]"
-          />
-        </div>
+        {/* Фото-коллаж — десктоп, слева */}
+        <MasterCollage class="mx-auto hidden w-full max-w-[400px] md:order-1 md:block" />
 
         <div class="md:order-2">
           <div class="text-[13px] font-semibold uppercase tracking-[0.14em] text-accent">
@@ -27,17 +18,10 @@ const alt = `Мастер-отделочник ${site.masterName}, Абакан`
           </div>
           <h2 class="mt-2.5 text-[clamp(26px,3.4vw,38px)] font-extrabold">{site.masterName}</h2>
 
-          {/* Фото — мобилка, под фразой «О мастере» */}
-          <div class="mx-auto mt-5 w-full max-w-[320px] md:hidden">
-            <img
-              src={photo}
-              alt={alt}
-              loading="lazy"
-              class="w-full rounded-2xl border border-border object-cover shadow-[0_30px_60px_-30px_rgba(0,0,0,0.3)]"
-            />
-          </div>
+          {/* Фото-коллаж — мобилка, под фразой «О мастере» */}
+          <MasterCollage class="mx-auto mt-6 w-full max-w-[300px] md:hidden" />
 
-          {site.about && <p class="mt-5 max-w-[40em] text-[17px] text-muted">{site.about}</p>}
+          {site.about && <p class="mt-6 max-w-[40em] text-[17px] text-muted">{site.about}</p>}
           <div class="mt-6 flex flex-wrap gap-3">
             <Button href={telHref}>Позвонить</Button>
             <Button href="/portfolio/" variant="secondary">Мои работы →</Button>
