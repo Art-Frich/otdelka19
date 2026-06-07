@@ -129,6 +129,7 @@ collections:
             widget: object
             fields:
               - { name: eyebrow, label: 'Надзаголовок', widget: string }
+              - { name: image, label: 'Картинка на первом экране', widget: image, required: false }
               - { name: title, label: 'Заголовок H1', widget: string }
               - { name: lead, label: 'Подзаголовок', widget: text }
               - name: stats

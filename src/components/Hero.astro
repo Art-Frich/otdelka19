@@ -41,11 +41,21 @@ const { hero } = site;
     <div
       class="aspect-[16/11] overflow-hidden rounded-2xl border border-border shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)] md:aspect-[4/5]"
     >
-      <div class="relative h-full w-full bg-[linear-gradient(140deg,#e9dccb,#f6efe6_50%,#d7bda3)]">
-        <span class="absolute bottom-3 left-3 rounded-lg bg-fg/80 px-2.5 py-1 text-xs text-bg">
-          фото объекта · после ремонта
-        </span>
-      </div>
+      {
+        hero.image ? (
+          <img
+            src={hero.image}
+            alt="Пример ремонта квартиры под ключ — Абакан"
+            class="h-full w-full object-cover"
+          />
+        ) : (
+          <div class="relative h-full w-full bg-[linear-gradient(140deg,#e9dccb,#f6efe6_50%,#d7bda3)]">
+            <span class="absolute bottom-3 left-3 rounded-lg bg-fg/80 px-2.5 py-1 text-xs text-bg">
+              фото объекта · после ремонта
+            </span>
+          </div>
+        )
+      }
     </div>
   </div>
 </section>
