@@ -1,0 +1,20 @@
+@import 'tailwindcss';
+
+/*
+  Дизайн-токены проекта.
+  Структура (semantic tokens + oklch) взята как паттерн из x-avto-prod,
+  ПАЛИТРА — своя и будет финализирована после выбора варианта дизайна.
+  Сейчас здесь нейтральный плейсхолдер.
+*/
+@theme {
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+
+  --color-bg: oklch(0.99 0.004 90);
+  --color-surface: oklch(1 0 0);
+  --color-fg: oklch(0.2 0.01 60);
+  --color-muted: oklch(0.55 0.01 60);
+  --color-accent: oklch(0.62 0.15 45);
+  --color-border: oklch(0.92 0.005 90);
+
+  --radius: 0.875rem;
+}

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Отделка 19 · Вариант A — Светлый минимал</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#FBFAF8; --surface:#FFFFFF; --ink:#181818; --muted:#6B6B66;
+    --accent:#B85C38; --accent-ink:#fff; --border:#ECE9E3; --radius:14px;
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.display{font-family:Manrope,system-ui,sans-serif;letter-spacing:-.02em;line-height:1.08}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .btn{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 22px;border-radius:999px;font-weight:600;font-size:15px;transition:.2s;border:1px solid transparent;cursor:pointer}
+  .btn-primary{background:var(--accent);color:var(--accent-ink)}
+  .btn-primary:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;border-color:var(--border);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--ink)}
+  .eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+
+  /* header */
+  header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{font-family:Manrope;font-weight:800;font-size:20px;letter-spacing:-.01em}
+  .logo b{color:var(--accent)}
+  .nav-links{display:flex;gap:30px;font-size:15px;color:var(--muted)}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{display:flex;align-items:center;gap:12px}
+  @media(max-width:860px){.nav-links{display:none}}
+
+  /* hero */
+  .hero{padding:88px 0 64px}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+  .hero h1{font-size:clamp(34px,5vw,58px);font-weight:800}
+  .hero p.lead{margin-top:20px;font-size:19px;color:var(--muted);max-width:30em}
+  .hero-cta{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap}
+  .stats{margin-top:40px;display:flex;gap:36px;flex-wrap:wrap}
+  .stat .n{font-family:Manrope;font-weight:800;font-size:30px}
+  .stat .l{font-size:13px;color:var(--muted)}
+  .hero-photo{aspect-ratio:4/5;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:0 30px 60px -30px rgba(0,0,0,.25)}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:32px}.hero-photo{aspect-ratio:16/11}}
+
+  /* photo placeholders */
+  .ph{width:100%;height:100%;position:relative;background:
+      linear-gradient(135deg,#d9d2c7,#efe9df 55%,#cfc6b7);overflow:hidden}
+  .ph::after{content:"";position:absolute;inset:0;background:
+      repeating-linear-gradient(135deg,rgba(255,255,255,.06) 0 22px,rgba(0,0,0,.025) 22px 44px)}
+  .ph .tag{position:absolute;bottom:12px;left:12px;background:rgba(24,24,24,.78);color:#fff;font-size:12px;letter-spacing:.04em;padding:5px 10px;border-radius:8px;z-index:2}
+
+  /* before/after split */
+  .ba{position:relative;width:100%;aspect-ratio:4/3;display:flex;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+  .ba .half{position:relative;flex:1;overflow:hidden}
+  .ba .before{filter:grayscale(.7) brightness(.92)}
+  .ba .before .ph{background:linear-gradient(135deg,#b9b3a8,#cfc8bb)}
+  .ba .after .ph{background:linear-gradient(135deg,#e8d6c4,#f6efe6 60%,#dcc4ab)}
+  .ba .divider{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;transform:translateX(-1px);z-index:3;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+  .badge{position:absolute;top:10px;font-size:11px;font-weight:600;letter-spacing:.08em;padding:4px 9px;border-radius:7px;z-index:4}
+  .badge.b{left:10px;background:rgba(24,24,24,.7);color:#fff}
+  .badge.a{right:10px;background:var(--accent);color:#fff}
+
+  /* sections */
+  section{padding:72px 0}
+  .sec-head{max-width:46em;margin-bottom:44px}
+  .sec-head h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;margin-top:10px}
+  .sec-head p{margin-top:12px;color:var(--muted);font-size:17px}
+
+  /* services */
+  .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .svc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 22px;transition:.2s}
+  .svc:hover{transform:translateY(-3px);box-shadow:0 20px 40px -26px rgba(0,0,0,.25)}
+  .svc .ic{width:42px;height:42px;border-radius:11px;background:color-mix(in srgb,var(--accent) 14%,transparent);display:grid;place-items:center;color:var(--accent);margin-bottom:16px}
+  .svc h3{font-size:18px;font-weight:700}
+  .svc p{margin-top:8px;font-size:14px;color:var(--muted)}
+  @media(max-width:860px){.svc-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.svc-grid{grid-template-columns:1fr}}
+
+  /* portfolio */
+  .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:.22s;display:block}
+  .card:hover{transform:translateY(-4px);box-shadow:0 28px 50px -28px rgba(0,0,0,.3);border-color:color-mix(in srgb,var(--accent) 40%,var(--border))}
+  .ba{border:none;border-radius:0}
+  .card .meta{padding:18px 20px}
+  .card .meta .t{font-family:Manrope;font-weight:700;font-size:16px}
+  .card .meta .d{margin-top:4px;font-size:13px;color:var(--muted)}
+  .card .meta .go{margin-top:12px;font-size:13px;font-weight:600;color:var(--accent);display:inline-flex;gap:6px}
+  @media(max-width:860px){.work-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.work-grid{grid-template-columns:1fr}}
+
+  /* contacts */
+  .contact{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:48px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+  .contact h2{font-size:clamp(26px,3.4vw,36px);font-weight:800}
+  .contact p{margin-top:12px;color:var(--muted);font-size:17px}
+  .contact .lines{display:flex;flex-direction:column;gap:14px}
+  .cl{display:flex;align-items:center;gap:14px;font-size:17px}
+  .cl .ic{width:44px;height:44px;border-radius:12px;background:color-mix(in srgb,var(--accent) 12%,transparent);display:grid;place-items:center;color:var(--accent);flex:none}
+  .cl b{font-family:Manrope}
+  .cl span{display:block;font-size:13px;color:var(--muted);font-weight:400}
+  @media(max-width:760px){.contact{grid-template-columns:1fr;padding:32px}}
+
+  footer{border-top:1px solid var(--border);padding:36px 0;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  .ph.hero-img{background:linear-gradient(140deg,#e9dccb,#f6efe6 50%,#d7bda3)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">ОТДЕЛКА<b>19</b></div>
+    <nav class="nav-links">
+      <a href="#uslugi">Услуги</a>
+      <a href="#raboty">Работы</a>
+      <a href="#kontakty">Контакты</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+      <a class="btn btn-primary" href="tel:+70000000000">Позвонить</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Ремонт и отделка квартир · Абакан и Черногорск</div>
+      <h1>Ремонт, который<br>не стыдно показать</h1>
+      <p class="lead">Чистовая отделка, ремонт под ключ, санузлы и плитка. Работаю аккуратно, в срок и с ежедневным фотоотчётом. Без посредников — вы общаетесь напрямую с мастером.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="tel:+70000000000">Позвонить мастеру</a>
+        <a class="btn btn-ghost" href="#raboty">Смотреть работы</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="n">12 лет</div><div class="l">на отделке</div></div>
+        <div class="stat"><div class="n">80+</div><div class="l">объектов сдано</div></div>
+        <div class="stat"><div class="n">2 года</div><div class="l">гарантия на работы</div></div>
+      </div>
+    </div>
+    <div class="hero-photo"><div class="ph hero-img"><div class="tag">фото объекта · после ремонта</div></div></div>
+  </div>
+</section>
+
+<section id="uslugi">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Что делаю</div>
+      <h2>Полный цикл отделочных работ</h2>
+      <p>От черновой до финиша. Берусь и за квартиру целиком «под ключ», и за отдельную комнату или санузел.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc"><div class="ic">◧</div><h3>Под ключ</h3><p>Полный ремонт квартиры от демонтажа до уборки и расстановки.</p></div>
+      <div class="svc"><div class="ic">▤</div><h3>Чистовая отделка</h3><p>Стены, потолки, полы, покраска, обои, ламинат — ровно и надолго.</p></div>
+      <div class="svc"><div class="ic">▥</div><h3>Санузлы и плитка</h3><p>Гидроизоляция, разводка, укладка плитки, установка сантехники.</p></div>
+      <div class="svc"><div class="ic">◰</div><h3>Косметический</h3><p>Освежить квартиру без капитальных работ — быстро и недорого.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="raboty" style="background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--accent) 4%,transparent))">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Портфолио</div>
+      <h2>Реальные объекты в Абакане и Черногорске</h2>
+      <p>Каждая карточка — отдельный кейс: до/после, метраж, сроки и этапы работ. Нажмите, чтобы посмотреть.</p>
+    </div>
+    <div class="work-grid">
+      <a class="card" href="#">
+        <div class="ba"><div class="half before"><div class="ph"></div></div><div class="half after"><div class="ph"></div></div><div class="divider"></div><span class="badge b">ДО</span><span class="badge a">ПОСЛЕ</span></div>
+        <div class="meta"><div class="t">2-комн., 58 м²</div><div class="d">р-н Преображенский · под ключ · 45 дней</div><div class="go">Смотреть кейс →</div></div>
+      </a>
+      <a class="card" href="#">
+        <div class="ba"><div class="half before"><div class="ph"></div></div><div class="half after"><div class="ph"></div></div><div class="divider"></div><span class="badge b">ДО</span><span class="badge a">ПОСЛЕ</span></div>
+        <div class="meta"><div class="t">Санузел, 4.2 м²</div><div class="d">ул. Кирова · плитка под ключ · 14 дней</div><div class="go">Смотреть кейс →</div></div>
+      </a>
+      <a class="card" href="#">
+        <div class="ba"><div class="half before"><div class="ph"></div></div><div class="half after"><div class="ph"></div></div><div class="divider"></div><span class="badge b">ДО</span><span class="badge a">ПОСЛЕ</span></div>
+        <div class="meta"><div class="t">Студия, 32 м²</div><div class="d">Черногорск · чистовая отделка · 28 дней</div><div class="go">Смотреть кейс →</div></div>
+      </a>
+      <a class="card" href="#">
+        <div class="ba"><div class="half before"><div class="ph"></div></div><div class="half after"><div class="ph"></div></div><div class="divider"></div><span class="badge b">ДО</span><span class="badge a">ПОСЛЕ</span></div>
+        <div class="meta"><div class="t">3-комн., 74 м²</div><div class="d">мкр. Аскизский · под ключ · 60 дней</div><div class="go">Смотреть кейс →</div></div>
+      </a>
+      <a class="card" href="#">
+        <div class="ba"><div class="half before"><div class="ph"></div></div><div class="half after"><div class="ph"></div></div><div class="divider"></div><span class="badge b">ДО</span><span class="badge a">ПОСЛЕ</span></div>
+        <div class="meta"><div class="t">Кухня-гостиная, 26 м²</div><div class="d">ул. Щетинкина · косметический · 18 дней</div><div class="go">Смотреть кейс →</div></div>
+      </a>
+      <a class="card" href="#">
+        <div class="ba"><div class="half before"><div class="ph"></div></div><div class="half after"><div class="ph"></div></div><div class="divider"></div><span class="badge b">ДО</span><span class="badge a">ПОСЛЕ</span></div>
+        <div class="meta"><div class="t">1-комн., 41 м²</div><div class="d">р-н Гавань · под ключ · 38 дней</div><div class="go">Смотреть кейс →</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="kontakty">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <div class="eyebrow">Контакты</div>
+        <h2>Обсудим ваш ремонт</h2>
+        <p>Позвоните или напишите в мессенджер — отвечу, сориентирую по срокам и при необходимости приеду на замер. Работаю в Абакане, Черногорске и по Хакасии.</p>
+      </div>
+      <div class="lines">
+        <a class="cl" href="tel:+70000000000"><span class="ic">☎</span><b>+7 (000) 000-00-00<span>Звонок · с 9:00 до 21:00</span></b></a>
+        <a class="cl" href="https://t.me/" target="_blank" rel="noopener"><span class="ic">✈</span><b>Telegram<span>Написать в мессенджере</span></b></a>
+        <a class="cl" href="https://wa.me/70000000000" target="_blank" rel="noopener"><span class="ic">✆</span><b>WhatsApp<span>Фото объекта — для быстрой оценки</span></b></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div>© 2026 Отделка 19 · Абакан, Черногорск, Хакасия</div>
+  <div>Ремонт и отделка квартир под ключ</div>
+</footer>
+
+</body>
+</html>
