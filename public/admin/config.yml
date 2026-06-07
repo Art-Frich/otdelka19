@@ -55,7 +55,7 @@ collections:
         value_field: 'services.*.title'
         search_fields: ['services.*.title']
         display_fields: ['services.*.title']
-        hint: 'Берётся из списка услуг (Настройки → Услуги) — единый источник, без дублей.'
+        hint: 'Берётся из списка услуг (Контент лендинга → Услуги) — единый источник, без дублей.'
       - { name: summary, label: 'Краткое описание', widget: text }
       - { name: area, label: 'Площадь, м²', widget: number, required: false, value_type: int, min: 1 }
       - { name: district, label: 'Район / адрес', widget: string, required: false }
@@ -104,29 +104,13 @@ collections:
     label: 'Настройки сайта'
     editor: { preview: false }
     files:
-      - name: site
-        label: 'Контакты и тексты'
-        file: 'src/data/site.json'
+      # ──────────── Общие настройки (сквозные, для всего сайта) ────────────
+      - name: common
+        label: '🌐 Общие настройки'
+        file: 'src/data/common.json'
         fields:
-          - { name: brand, label: 'Бренд', widget: string }
+          - { name: brand, label: 'Название сайта', widget: string }
           - { name: slogan, label: 'Слоган', widget: string, required: false }
-          - { name: masterName, label: 'Имя мастера', widget: string, required: false }
-          - name: masterPhotos
-            label: 'Фото мастера (галерея)'
-            widget: list
-            required: false
-            summary: '{{fields.alt}}'
-            hint: 'Листаются стрелками в блоке «О мастере». Первое фото — главное. Можно добавлять, менять и двигать. Грузятся в папку мастера.'
-            fields:
-              - {
-                  name: src,
-                  label: 'Фото',
-                  widget: image,
-                  media_folder: '/public/img/master',
-                  public_folder: '/img/master',
-                }
-              - { name: alt, label: 'Подпись (alt, для SEO)', widget: string, required: false }
-          - { name: about, label: 'О мастере (текст)', widget: text, required: false }
           - { name: phone, label: 'Телефон', widget: string }
           - name: socials
             label: 'Соцсети и мессенджеры'
@@ -156,28 +140,6 @@ collections:
               required: false,
               hint: 'Любая ссылка: таблица, PDF или страница. Пусто — блок прайса скрыт.',
             }
-          - name: hero
-            label: 'Первый экран'
-            widget: object
-            fields:
-              - { name: eyebrow, label: 'Надзаголовок', widget: string }
-              - { name: image, label: 'Картинка на первом экране', widget: image, required: false }
-              - { name: title, label: 'Заголовок H1', widget: string }
-              - { name: lead, label: 'Подзаголовок', widget: text }
-              - name: stats
-                label: 'Цифры (3 шт.)'
-                widget: list
-                fields:
-                  - { name: n, label: 'Значение', widget: string }
-                  - { name: l, label: 'Подпись', widget: string }
-          - { name: servicesIntro, label: 'Услуги — вступление', widget: text }
-          - name: services
-            label: 'Услуги'
-            widget: list
-            fields:
-              - { name: icon, label: 'Иконка (символ)', widget: string }
-              - { name: title, label: 'Название', widget: string }
-              - { name: text, label: 'Описание', widget: text }
           - name: seo
             label: 'SEO по умолчанию'
             widget: object
@@ -209,3 +171,48 @@ collections:
                   required: false,
                   hint: 'Показывается при отправке ссылки в Telegram/WhatsApp/соцсети. Загрузите картинку ~1200×630 — путь подставится сам, вручную ничего писать не нужно.',
                 }
+
+      # ──────────── Контент лендинга (содержимое главной страницы) ────────────
+      - name: site
+        label: '📄 Контент лендинга'
+        file: 'src/data/site.json'
+        fields:
+          - { name: masterName, label: 'Имя мастера', widget: string, required: false }
+          - name: masterPhotos
+            label: 'Фото мастера (галерея)'
+            widget: list
+            required: false
+            summary: '{{fields.alt}}'
+            hint: 'Листаются стрелками в блоке «О мастере». Первое фото — главное. Можно добавлять, менять и двигать. Грузятся в папку мастера.'
+            fields:
+              - {
+                  name: src,
+                  label: 'Фото',
+                  widget: image,
+                  media_folder: '/public/img/master',
+                  public_folder: '/img/master',
+                }
+              - { name: alt, label: 'Подпись (alt, для SEO)', widget: string, required: false }
+          - { name: about, label: 'О мастере (текст)', widget: text, required: false }
+          - name: hero
+            label: 'Первый экран'
+            widget: object
+            fields:
+              - { name: eyebrow, label: 'Надзаголовок', widget: string }
+              - { name: image, label: 'Картинка на первом экране', widget: image, required: false }
+              - { name: title, label: 'Заголовок H1', widget: string }
+              - { name: lead, label: 'Подзаголовок', widget: text }
+              - name: stats
+                label: 'Цифры (3 шт.)'
+                widget: list
+                fields:
+                  - { name: n, label: 'Значение', widget: string }
+                  - { name: l, label: 'Подпись', widget: string }
+          - { name: servicesIntro, label: 'Услуги — вступление', widget: text }
+          - name: services
+            label: 'Услуги'
+            widget: list
+            fields:
+              - { name: icon, label: 'Иконка (символ)', widget: string }
+              - { name: title, label: 'Название', widget: string }
+              - { name: text, label: 'Описание', widget: text }

@@ -1,10 +1,11 @@
 ---
 import site from '@/data/site.json';
+import common from '@/data/common.json';
 import SocialIcon from '@/components/SocialIcon.astro';
 import { enabledSocials, SOCIAL_META } from '@/lib/socials';
 import SectionHead from '@/components/SectionHead.astro';
 import { telHref, phoneDisplay } from '@/lib/contacts';
-const hasPrice = !!site.priceUrl;
+const hasPrice = !!common.priceUrl;
 const socials = enabledSocials();
 ---
 
@@ -17,7 +18,7 @@ const socials = enabledSocials();
         <SectionHead
           eyebrow="Контакты"
           title="Обсудим ваш ремонт"
-          desc={`Позвоните или напишите в мессенджер — отвечу, сориентирую по срокам и при необходимости приеду на замер. Работаю в ${site.areaServed.join(', ')}.`}
+          desc={`Позвоните или напишите в мессенджер — отвечу, сориентирую по срокам и при необходимости приеду на замер. Работаю в ${common.areaServed.join(', ')}.`}
         />
         {
           site.masterName && (
@@ -30,7 +31,7 @@ const socials = enabledSocials();
         {
           hasPrice && (
             <a
-              href={site.priceUrl}
+              href={common.priceUrl}
               target="_blank"
               rel="noopener"
               class="mt-5 inline-flex items-center gap-2 text-[15px] font-semibold text-accent"
@@ -45,7 +46,7 @@ const socials = enabledSocials();
           <span class="grid h-11 w-11 flex-none place-items-center rounded-xl bg-accent-soft text-accent">☎</span>
           <span class="font-display font-semibold">
             {phoneDisplay}
-            <span class="block text-[13px] font-normal text-muted">Звонок · {site.workingHours}</span>
+            <span class="block text-[13px] font-normal text-muted">Звонок · {common.workingHours}</span>
           </span>
         </a>
         {

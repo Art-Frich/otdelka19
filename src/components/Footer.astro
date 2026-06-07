@@ -1,5 +1,5 @@
 ---
-import site from '@/data/site.json';
+import common from '@/data/common.json';
 import SocialLinks from '@/components/SocialLinks.astro';
 import CreatedBy from '@/components/CreatedBy.astro';
 const year = new Date().getFullYear();
@@ -8,9 +8,9 @@ const year = new Date().getFullYear();
 <footer class="glass border-t border-border">
   <div class="container-x py-9">
     <div class="flex flex-wrap items-center justify-between gap-4 text-sm text-muted">
-      <div>© {year} {site.brand}{site.slogan ? ` — ${site.slogan}` : ''}</div>
+      <div>© {year} {common.brand}{common.slogan ? ` — ${common.slogan}` : ''}</div>
       <SocialLinks itemClass="h-9 w-9 hover:text-accent" iconClass="h-[18px] w-[18px]" />
-      <div>Ремонт и отделка квартир · {site.areaServed.join(', ')}</div>
+      <div>Ремонт и отделка квартир · {common.areaServed.join(', ')}</div>
     </div>
     <CreatedBy />
   </div>

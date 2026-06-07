@@ -1,3 +1,4 @@
+import common from '@/data/common.json';
 import site from '@/data/site.json';
 import { socialSameAs } from './socials';
 import { phoneNumber } from './contacts';
@@ -15,18 +16,18 @@ const abs = (base: string, path?: string) =>
   !path ? undefined : /^https?:\/\//.test(path) ? path : `${base}${path.replace(/^\//, '')}`;
 
 export function organizationSchema(base: string) {
-  const hours = site.workingHours.match(/(\d{1,2}:\d{2}).+?(\d{1,2}:\d{2})/);
+  const hours = common.workingHours.match(/(\d{1,2}:\d{2}).+?(\d{1,2}:\d{2})/);
   const pad = (t: string) => t.replace(/^(\d):/, '0$1:');
   return {
     '@context': 'https://schema.org',
     '@type': ['HomeAndConstructionBusiness', 'GeneralContractor', 'LocalBusiness'],
     '@id': orgId(base),
-    name: site.brand,
+    name: common.brand,
     ...(site.masterName && { founder: { '@type': 'Person', name: site.masterName } }),
     url: base,
     telephone: phoneNumber,
-    image: abs(base, site.seo.ogImage),
-    description: site.seo.description,
+    image: abs(base, common.seo.ogImage),
+    description: common.seo.description,
     priceRange: '₽₽',
     ...(hours && {
       openingHoursSpecification: {
@@ -38,11 +39,11 @@ export function organizationSchema(base: string) {
     }),
     address: {
       '@type': 'PostalAddress',
-      addressLocality: site.areaServed[0],
+      addressLocality: common.areaServed[0],
       addressRegion: 'Республика Хакасия',
       addressCountry: 'RU',
     },
-    areaServed: site.areaServed.map((name) => ({ '@type': 'City', name })),
+    areaServed: common.areaServed.map((name) => ({ '@type': 'City', name })),
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: phoneNumber,
@@ -66,7 +67,7 @@ export function servicesSchema(base: string) {
         '@type': 'Service',
         name: s.title,
         description: s.text,
-        areaServed: site.areaServed.map((name) => ({ '@type': 'City', name })),
+        areaServed: common.areaServed.map((name) => ({ '@type': 'City', name })),
         provider: { '@id': orgId(base) },
       },
     })),
@@ -97,7 +98,7 @@ type ProjectData = {
 };
 
 export function projectSchema(base: string, slug: string, p: ProjectData) {
-  const img = abs(base, p.afterImage || p.cover || site.seo.ogImage);
+  const img = abs(base, p.afterImage || p.cover || common.seo.ogImage);
   return {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',

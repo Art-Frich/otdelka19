@@ -1,4 +1,4 @@
-import site from '@/data/site.json';
+import common from '@/data/common.json';
 
 export const SOCIAL_META: Record<string, { label: string; hint: string }> = {
   max: { label: 'MAX', hint: 'Написать в MAX' },
@@ -8,7 +8,7 @@ export const SOCIAL_META: Record<string, { label: string; hint: string }> = {
 };
 
 /** Соцсети с заполненной ссылкой и известной площадкой (пустые в CMS скрываются). */
-export const enabledSocials = () => site.socials.filter((s) => s.url && SOCIAL_META[s.type]);
+export const enabledSocials = () => common.socials.filter((s) => s.url && SOCIAL_META[s.type]);
 
 /** Ссылка «настоящая» (есть путь, а не голый домен-плейсхолдер) — для sameAs. */
 const isRealUrl = (url: string): boolean => {

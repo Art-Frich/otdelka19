@@ -1,5 +1,5 @@
 ---
-import site from '@/data/site.json';
+import common from '@/data/common.json';
 import SocialLinks from '@/components/SocialLinks.astro';
 import Button from '@/components/Button.astro';
 import { telHref } from '@/lib/contacts';
@@ -19,9 +19,9 @@ const nav = [
         >ОТДЕЛКА<span class="text-accent">19</span></span
       >
       {
-        site.slogan && (
+        common.slogan && (
           <span class="mt-1 block text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
-            {site.slogan}
+            {common.slogan}
           </span>
         )
       }
