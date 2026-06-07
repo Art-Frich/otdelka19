@@ -95,8 +95,19 @@ collections:
           - { name: tagline, label: 'Слоган', widget: string }
           - { name: phoneDisplay, label: 'Телефон (как показывать)', widget: string }
           - { name: phoneHref, label: 'Телефон для звонка (формат +70000000000)', widget: string }
-          - { name: telegram, label: 'Telegram (ссылка)', widget: string }
-          - { name: whatsapp, label: 'WhatsApp (ссылка)', widget: string }
+          - name: socials
+            label: 'Соцсети и мессенджеры'
+            widget: list
+            required: false
+            summary: '{{fields.type}} — {{fields.url}}'
+            fields:
+              - {
+                  name: type,
+                  label: 'Площадка',
+                  widget: select,
+                  options: ['max', 'vk', 'telegram', 'instagram'],
+                }
+              - { name: url, label: 'Ссылка', widget: string }
           - { name: workingHours, label: 'Часы работы', widget: string }
           - { name: city, label: 'Город', widget: string }
           - {

@@ -1,16 +1,24 @@
 ---
 import site from '@/data/site.json';
+import SocialIcon from '@/components/SocialIcon.astro';
+import { enabledSocials, SOCIAL_META } from '@/lib/socials';
+const socials = enabledSocials();
 ---
 
 <div class="fixed bottom-5 right-5 z-40 flex flex-col gap-3">
-  <a
-    href={site.telegram}
-    target="_blank"
-    rel="noopener"
-    aria-label="Написать в Telegram"
-    class="grid h-12 w-12 place-items-center rounded-full bg-surface text-xl text-accent shadow-lg ring-1 ring-border transition hover:-translate-y-0.5"
-    >✈</a
-  >
+  {
+    socials.map((s) => (
+      <a
+        href={s.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={SOCIAL_META[s.type].hint}
+        class="grid h-12 w-12 place-items-center rounded-full bg-surface text-accent shadow-lg ring-1 ring-border transition hover:-translate-y-0.5"
+      >
+        <SocialIcon type={s.type} class="h-[22px] w-[22px]" />
+      </a>
+    ))
+  }
   <a
     href={`tel:${site.phoneHref}`}
     aria-label="Позвонить мастеру"

@@ -4,8 +4,12 @@
   "tagline": "Ремонт и отделка квартир в Абакане и Черногорске",
   "phoneDisplay": "+7 (000) 000-00-00",
   "phoneHref": "+70000000000",
-  "telegram": "https://t.me/",
-  "whatsapp": "https://wa.me/70000000000",
+  "socials": [
+    { "type": "max", "url": "https://max.ru/" },
+    { "type": "vk", "url": "https://vk.com/" },
+    { "type": "telegram", "url": "https://t.me/" },
+    { "type": "instagram", "url": "" }
+  ],
   "workingHours": "с 9:00 до 21:00",
   "city": "Абакан",
   "areaServed": ["Абакан", "Черногорск", "Хакасия"],

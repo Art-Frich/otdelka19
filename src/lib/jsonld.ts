@@ -1,4 +1,5 @@
 import site from '@/data/site.json';
+import { socialSameAs } from './socials';
 
 /*
   Модульные генераторы JSON-LD (паттерн из x-avto-prod, lib/json-ld/*).
@@ -11,12 +12,6 @@ export const orgId = (base: string) => `${base}#org`;
 
 const abs = (base: string, path?: string) =>
   !path ? undefined : /^https?:\/\//.test(path) ? path : `${base}${path.replace(/^\//, '')}`;
-
-const cleanLinks = (...links: (string | undefined)[]) =>
-  links.filter(
-    (u): u is string =>
-      !!u && u !== 'https://t.me/' && u !== 'https://wa.me/70000000000'
-  );
 
 export function organizationSchema(base: string) {
   return {
@@ -44,9 +39,7 @@ export function organizationSchema(base: string) {
       areaServed: 'RU',
       availableLanguage: ['Russian'],
     },
-    ...(cleanLinks(site.telegram, site.whatsapp).length && {
-      sameAs: cleanLinks(site.telegram, site.whatsapp),
-    }),
+    ...(socialSameAs().length > 0 && { sameAs: socialSameAs() }),
   };
 }
 

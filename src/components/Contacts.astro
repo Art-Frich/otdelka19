@@ -1,6 +1,9 @@
 ---
 import site from '@/data/site.json';
+import SocialIcon from '@/components/SocialIcon.astro';
+import { enabledSocials, SOCIAL_META } from '@/lib/socials';
 const hasPrice = !!site.priceUrl;
+const socials = enabledSocials();
 ---
 
 <section id="kontakty" class="py-[72px]">
@@ -44,20 +47,26 @@ const hasPrice = !!site.priceUrl;
             <span class="block text-[13px] font-normal text-muted">Звонок · {site.workingHours}</span>
           </span>
         </a>
-        <a href={site.telegram} target="_blank" rel="noopener" class="flex items-center gap-3.5 text-[17px]">
-          <span class="grid h-11 w-11 flex-none place-items-center rounded-xl bg-accent-soft text-accent">✈</span>
-          <span class="font-display font-semibold">
-            Telegram
-            <span class="block text-[13px] font-normal text-muted">Написать в мессенджере</span>
-          </span>
-        </a>
-        <a href={site.whatsapp} target="_blank" rel="noopener" class="flex items-center gap-3.5 text-[17px]">
-          <span class="grid h-11 w-11 flex-none place-items-center rounded-xl bg-accent-soft text-accent">✆</span>
-          <span class="font-display font-semibold">
-            WhatsApp
-            <span class="block text-[13px] font-normal text-muted">Фото объекта — для быстрой оценки</span>
-          </span>
-        </a>
+        {
+          socials.map((s) => (
+            <a
+              href={s.url}
+              target="_blank"
+              rel="noopener"
+              class="flex items-center gap-3.5 text-[17px]"
+            >
+              <span class="grid h-11 w-11 flex-none place-items-center rounded-xl bg-accent-soft text-accent">
+                <SocialIcon type={s.type} class="h-5 w-5" />
+              </span>
+              <span class="font-display font-semibold">
+                {SOCIAL_META[s.type].label}
+                <span class="block text-[13px] font-normal text-muted">
+                  {SOCIAL_META[s.type].hint}
+                </span>
+              </span>
+            </a>
+          ))
+        }
       </div>
     </div>
   </div>

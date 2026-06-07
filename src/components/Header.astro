@@ -1,5 +1,6 @@
 ---
 import site from '@/data/site.json';
+import SocialLinks from '@/components/SocialLinks.astro';
 
 const nav = [
   { href: '/#uslugi', label: 'Услуги' },
@@ -17,13 +18,11 @@ const nav = [
       {nav.map((n) => <a href={n.href} class="transition hover:text-fg">{n.label}</a>)}
     </nav>
     <div class="flex items-center gap-3">
-      <a
-        href={site.telegram}
-        target="_blank"
-        rel="noopener"
-        class="hidden h-11 items-center rounded-full border border-border px-5 text-sm font-semibold transition hover:border-fg sm:inline-flex"
-        >Telegram</a
-      >
+      <SocialLinks
+        class="hidden sm:flex"
+        itemClass="h-10 w-10 border border-border hover:border-accent"
+        iconClass="h-[18px] w-[18px]"
+      />
       <a
         href={`tel:${site.phoneHref}`}
         class="inline-flex h-11 items-center rounded-full bg-accent px-5 text-sm font-semibold text-accent-fg transition hover:brightness-110"

@@ -1,0 +1,31 @@
+---
+import { enabledSocials, SOCIAL_META } from '@/lib/socials';
+import SocialIcon from '@/components/SocialIcon.astro';
+
+interface Props {
+  class?: string;
+  itemClass?: string;
+  iconClass?: string;
+}
+const { class: className = '', itemClass = '', iconClass = 'h-5 w-5' } = Astro.props;
+const socials = enabledSocials();
+---
+
+{
+  socials.length > 0 && (
+    <div class:list={['flex items-center gap-2', className]}>
+      {socials.map((s) => (
+        <a
+          href={s.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={SOCIAL_META[s.type].hint}
+          title={SOCIAL_META[s.type].label}
+          class:list={['grid place-items-center rounded-full text-muted transition hover:text-accent', itemClass]}
+        >
+          <SocialIcon type={s.type} class={iconClass} />
+        </a>
+      ))}
+    </div>
+  )
+}
