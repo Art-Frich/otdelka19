@@ -95,8 +95,7 @@ collections:
           - { name: masterName, label: 'Имя мастера', widget: string, required: false }
           - { name: masterPhoto, label: 'Фото мастера', widget: image, required: false }
           - { name: about, label: 'О мастере (текст)', widget: text, required: false }
-          - { name: phoneDisplay, label: 'Телефон (как показывать)', widget: string }
-          - { name: phoneHref, label: 'Телефон для звонка (формат +70000000000)', widget: string }
+          - { name: phone, label: 'Телефон', widget: string }
           - name: socials
             label: 'Соцсети и мессенджеры'
             widget: list
@@ -111,11 +110,11 @@ collections:
                 }
               - { name: url, label: 'Ссылка', widget: string }
           - { name: workingHours, label: 'Часы работы', widget: string }
-          - { name: city, label: 'Город', widget: string }
           - {
               name: areaServed,
               label: 'География (города)',
               widget: list,
+              hint: 'Первый город в списке — основной: он используется как город мастера в SEO-разметке (адрес).',
               field: { name: city, label: 'Город', widget: string },
             }
           - {

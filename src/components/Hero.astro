@@ -1,6 +1,7 @@
 ---
 import site from '@/data/site.json';
 import Button from '@/components/Button.astro';
+import { telHref } from '@/lib/contacts';
 const { hero } = site;
 ---
 
@@ -15,7 +16,7 @@ const { hero } = site;
       <h1 class="mt-4 text-[clamp(34px,5vw,58px)] font-extrabold">{hero.title}</h1>
       <p class="mt-5 max-w-[30em] text-lg text-muted">{hero.lead}</p>
       <div class="mt-8 flex flex-wrap gap-3.5">
-        <Button href={`tel:${site.phoneHref}`}>Позвонить мастеру</Button>
+        <Button href={telHref}>Позвонить мастеру</Button>
         <Button href="/portfolio/" variant="secondary">Смотреть работы →</Button>
       </div>
       {

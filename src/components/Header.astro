@@ -2,6 +2,7 @@
 import site from '@/data/site.json';
 import SocialLinks from '@/components/SocialLinks.astro';
 import Button from '@/components/Button.astro';
+import { telHref } from '@/lib/contacts';
 
 const nav = [
   { href: '/#uslugi', label: 'Услуги' },
@@ -33,7 +34,7 @@ const nav = [
         itemClass="h-10 w-10 border border-border hover:border-accent"
         iconClass="h-[18px] w-[18px]"
       />
-      <Button href={`tel:${site.phoneHref}`} size="sm">Позвонить</Button>
+      <Button href={telHref} size="sm">Позвонить</Button>
     </div>
   </div>
 </header>

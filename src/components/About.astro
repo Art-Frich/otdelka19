@@ -2,6 +2,7 @@
 import site from '@/data/site.json';
 import Button from '@/components/Button.astro';
 import SectionHead from '@/components/SectionHead.astro';
+import { telHref } from '@/lib/contacts';
 const photo = site.masterPhoto || '/img/master/portrait.webp';
 ---
 
@@ -21,7 +22,7 @@ const photo = site.masterPhoto || '/img/master/portrait.webp';
           <div>
             <SectionHead eyebrow="О мастере" title={site.masterName} desc={site.about} />
             <div class="mt-6 flex flex-wrap gap-3">
-              <Button href={`tel:${site.phoneHref}`}>Позвонить</Button>
+              <Button href={telHref}>Позвонить</Button>
               <Button href="/portfolio/" variant="secondary">Мои работы →</Button>
             </div>
           </div>

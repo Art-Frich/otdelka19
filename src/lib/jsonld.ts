@@ -1,5 +1,6 @@
 import site from '@/data/site.json';
 import { socialSameAs } from './socials';
+import { phoneNumber } from './contacts';
 
 /*
   Модульные генераторы JSON-LD (паттерн из x-avto-prod, lib/json-ld/*).
@@ -21,20 +22,20 @@ export function organizationSchema(base: string) {
     name: site.brand,
     ...(site.masterName && { founder: { '@type': 'Person', name: site.masterName } }),
     url: base,
-    telephone: site.phoneHref,
+    telephone: phoneNumber,
     image: abs(base, site.seo.ogImage),
     description: site.seo.description,
     priceRange: '₽₽',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: site.city,
+      addressLocality: site.areaServed[0],
       addressRegion: 'Республика Хакасия',
       addressCountry: 'RU',
     },
     areaServed: site.areaServed.map((name) => ({ '@type': 'City', name })),
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: site.phoneHref,
+      telephone: phoneNumber,
       contactType: 'customer service',
       areaServed: 'RU',
       availableLanguage: ['Russian'],
