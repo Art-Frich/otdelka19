@@ -4,7 +4,9 @@
 # никакого OAuth-релея не нужно. OAuth (вход одной кнопкой) опционален: для него
 # поднимается мини-функция sveltia-cms-auth (напр. на Yandex Cloud Functions).
 # Перед боевым использованием: создать репозиторий на GitHub и указать его в backend.repo.
-# Локально (npm run dev) редактирование работает через local_backend без GitHub.
+# Локально: запусти dev-сервер, открой /admin/ в Chrome или Edge и нажми
+# «Work with Local Repository» — Sveltia правит файлы напрямую через File System API
+# (без GitHub и без прокси). Прокси/local_backend Sveltia не использует.
 
 backend:
   name: github
@@ -13,8 +15,6 @@ backend:
   auth_methods:
     - token
     - oauth
-
-local_backend: true
 
 locale: ru
 media_folder: 'public/img/uploads'
