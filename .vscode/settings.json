@@ -1,0 +1,6 @@
+{
+  "// comment": "Переопределяем авто-подбор JSON-схемы для config.yml Sveltia: ставим свою разрешающую, чтобы редактор не цеплял чужую схему (ложная ошибка 'Missing property name').",
+  "yaml.schemas": {
+    "./.vscode/sveltia-config.schema.json": "public/admin/config.yml"
+  }
+}

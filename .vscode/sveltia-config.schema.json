@@ -1,0 +1,6 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Sveltia CMS config (permissive)",
+  "description": "Разрешающая схема: отключает ложные ошибки авто-подобранной схемы редактора для config.yml. Sveltia валидирует конфиг сам.",
+  "type": "object"
+}
