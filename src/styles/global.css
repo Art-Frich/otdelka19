@@ -341,3 +341,33 @@ h3 {
   color: rgb(255 255 255 / 0.7);
   font-size: 13px;
 }
+
+/* ---- Плавающие контакты (выплывающая пилюля) ---- */
+.fab {
+  display: flex;
+  align-items: center;
+  border-radius: 9999px 0 0 9999px;
+}
+.fab__list {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  max-width: 0;
+  opacity: 0;
+  transition:
+    max-width 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+    opacity 0.3s ease;
+}
+.fab.is-open .fab__list {
+  max-width: 360px;
+  opacity: 1;
+}
+.fab__toggle .ic-close {
+  display: none;
+}
+.fab.is-open .fab__toggle .ic-chat {
+  display: none;
+}
+.fab.is-open .fab__toggle .ic-close {
+  display: block;
+}
