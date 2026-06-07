@@ -10,7 +10,7 @@
 
 backend:
   name: github
-  repo: your-user/otdelka19 # ЗАМЕНИТЬ на ваш GitHub-репозиторий (owner/repo)
+  repo: Art-Frich/otdelka19 # превью-репо; для боя заменить на боевой owner/repo
   branch: main
   auth_methods:
     - token

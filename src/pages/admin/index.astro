@@ -1,6 +1,8 @@
 ---
-// Админка Sveltia CMS как настоящий маршрут /admin/ (работает в dev и в проде).
-// Конфиг — /admin/config.yml (public/admin/config.yml).
+// Админка Sveltia CMS как настоящий маршрут /admin/ (работает в dev, проде и превью).
+// Конфиг — public/admin/config.yml; путь делаем base-aware, иначе на GitHub Pages
+// (сайт в подпапке /otdelka19/) админка ищет /admin/config.yml и ловит 404.
+import { withBase } from '@/lib/url';
 ---
 
 <!doctype html>
@@ -10,8 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
     <title>Отделка 19 — Админка</title>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link href={withBase('/admin/config.yml')} type="text/yaml" rel="cms-config-url" />
   </head>
   <body>
     <script is:inline src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
