@@ -24,8 +24,8 @@ const hasMedia = isCompare || gallery.length > 0;
 >
   <div class="relative aspect-[4/3] overflow-hidden">
     {
-      isCompare ? (
-        <BeforeAfter before={d.beforeImage!} after={d.afterImage!} alt={d.title} />
+      d.beforeImage && d.afterImage ? (
+        <BeforeAfter before={d.beforeImage} after={d.afterImage} alt={d.title} />
       ) : cover ? (
         <img
           src={cover}

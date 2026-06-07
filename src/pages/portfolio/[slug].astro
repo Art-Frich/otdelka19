@@ -61,10 +61,10 @@ const proj = projectSchema(base, project.id, d);
       {/* герой */}
       <div class="relative mt-8 overflow-hidden rounded-2xl border border-border">
         {
-          isCompare ? (
+          d.beforeImage && d.afterImage ? (
             <>
               <div class="aspect-[4/3]">
-                <BeforeAfter before={d.beforeImage!} after={d.afterImage!} alt={d.title} />
+                <BeforeAfter before={d.beforeImage} after={d.afterImage} alt={d.title} />
               </div>
               <button
                 type="button"

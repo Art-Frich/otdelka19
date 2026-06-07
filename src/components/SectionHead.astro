@@ -1,0 +1,23 @@
+---
+// Заголовок секции: eyebrow + заголовок + опц. описание. Убирает повтор в секциях.
+interface Props {
+  eyebrow?: string;
+  title: string;
+  desc?: string;
+  as?: 'h1' | 'h2';
+  class?: string;
+}
+const { eyebrow, title, desc, as: tag = 'h2', class: className } = Astro.props;
+const Heading = tag;
+const size = tag === 'h1' ? 'text-[clamp(30px,4vw,48px)]' : 'text-[clamp(26px,3.4vw,38px)]';
+---
+
+<div class:list={[className]}>
+  {
+    eyebrow && (
+      <div class="text-[13px] font-semibold uppercase tracking-[0.14em] text-accent">{eyebrow}</div>
+    )
+  }
+  <Heading class:list={['mt-2.5 font-extrabold', size]}>{title}</Heading>
+  {desc && <p class="mt-3 text-[17px] text-muted">{desc}</p>}
+</div>

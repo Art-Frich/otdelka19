@@ -2,6 +2,7 @@
 import site from '@/data/site.json';
 import SocialIcon from '@/components/SocialIcon.astro';
 import { enabledSocials, SOCIAL_META } from '@/lib/socials';
+import SectionHead from '@/components/SectionHead.astro';
 const hasPrice = !!site.priceUrl;
 const socials = enabledSocials();
 ---
@@ -12,12 +13,11 @@ const socials = enabledSocials();
       class="grid grid-cols-1 items-center gap-10 rounded-3xl border border-border bg-surface p-8 md:grid-cols-[1.2fr_1fr] md:p-12"
     >
       <div>
-        <div class="text-[13px] font-semibold uppercase tracking-[0.14em] text-accent">Контакты</div>
-        <h2 class="mt-2 text-[clamp(26px,3.4vw,36px)] font-extrabold">Обсудим ваш ремонт</h2>
-        <p class="mt-3 text-[17px] text-muted">
-          Позвоните или напишите в мессенджер — отвечу, сориентирую по срокам и при необходимости
-          приеду на замер. Работаю в {site.areaServed.join(', ')}.
-        </p>
+        <SectionHead
+          eyebrow="Контакты"
+          title="Обсудим ваш ремонт"
+          desc={`Позвоните или напишите в мессенджер — отвечу, сориентирую по срокам и при необходимости приеду на замер. Работаю в ${site.areaServed.join(', ')}.`}
+        />
         {
           site.masterName && (
             <p class="mt-4 text-[15px]">
