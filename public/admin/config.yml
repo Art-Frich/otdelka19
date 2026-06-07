@@ -112,9 +112,9 @@ collections:
           - { name: workingHours, label: 'Часы работы', widget: string }
           - {
               name: areaServed,
-              label: 'География работы (первый город — основной)',
+              label: 'География работы',
               widget: list,
-              hint: 'Первый город в списке отображается как город мастера в адресе и SEO-разметке (Schema).',
+              hint: 'Города, где работает мастер. Видны списком в блоке «Контакты» и в подвале сайта. Первый город дополнительно уходит в невидимую SEO-разметку (Schema.org, поле addressLocality) как город компании — это помогает Яндексу привязать сайт к городу.',
               field: { name: city, label: 'Город', widget: string },
             }
           - {
@@ -150,8 +150,29 @@ collections:
             label: 'SEO по умолчанию'
             widget: object
             collapsed: true
+            hint: 'Как сайт выглядит в поиске и при отправке ссылки. Применяется ко всем страницам, у которых не задан свой SEO.'
             fields:
-              - { name: titleDefault, label: 'Заголовок главной', widget: string }
-              - { name: titleTemplate, label: 'Шаблон заголовка (%s — страница)', widget: string }
-              - { name: description, label: 'Описание', widget: text }
-              - { name: ogImage, label: 'OG-картинка (путь)', widget: string }
+              - {
+                  name: titleDefault,
+                  label: 'Заголовок главной',
+                  widget: string,
+                  hint: 'Вкладка браузера и синяя ссылка в выдаче Яндекса/Google. До ~60 символов.',
+                }
+              - {
+                  name: titleTemplate,
+                  label: 'Шаблон заголовка остальных страниц',
+                  widget: string,
+                  hint: '%s заменяется названием страницы. Напр.: «Портфолио — Отделка 19».',
+                }
+              - {
+                  name: description,
+                  label: 'Описание для поиска',
+                  widget: text,
+                  hint: 'Серый текст под ссылкой в выдаче, ~150–160 символов. Честно про услугу.',
+                }
+              - {
+                  name: ogImage,
+                  label: 'Картинка-превью ссылки',
+                  widget: string,
+                  hint: 'Показывается при отправке ссылки в Telegram/WhatsApp/соцсети. Путь к картинке 1200×630, напр. /og.jpg.',
+                }

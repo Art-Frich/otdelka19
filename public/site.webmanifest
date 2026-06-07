@@ -1,0 +1,14 @@
+{
+  "name": "Отделка 19 — ремонт и отделка квартир в Абакане",
+  "short_name": "Отделка 19",
+  "description": "Ремонт и отделка квартир под ключ в Абакане и Черногорске.",
+  "lang": "ru",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4efe8",
+  "theme_color": "#b85c38",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

@@ -15,6 +15,8 @@ const abs = (base: string, path?: string) =>
   !path ? undefined : /^https?:\/\//.test(path) ? path : `${base}${path.replace(/^\//, '')}`;
 
 export function organizationSchema(base: string) {
+  const hours = site.workingHours.match(/(\d{1,2}:\d{2}).+?(\d{1,2}:\d{2})/);
+  const pad = (t: string) => t.replace(/^(\d):/, '0$1:');
   return {
     '@context': 'https://schema.org',
     '@type': ['HomeAndConstructionBusiness', 'GeneralContractor', 'LocalBusiness'],
@@ -26,6 +28,14 @@ export function organizationSchema(base: string) {
     image: abs(base, site.seo.ogImage),
     description: site.seo.description,
     priceRange: '₽₽',
+    ...(hours && {
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: pad(hours[1]),
+        closes: pad(hours[2]),
+      },
+    }),
     address: {
       '@type': 'PostalAddress',
       addressLocality: site.areaServed[0],
