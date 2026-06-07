@@ -1,0 +1,64 @@
+---
+import site from '@/data/site.json';
+const hasPrice = !!site.priceUrl;
+---
+
+<section id="kontakty" class="py-[72px]">
+  <div class="mx-auto max-w-[1120px] px-6">
+    <div
+      class="grid grid-cols-1 items-center gap-10 rounded-3xl border border-border bg-surface p-8 md:grid-cols-[1.2fr_1fr] md:p-12"
+    >
+      <div>
+        <div class="text-[13px] font-semibold uppercase tracking-[0.14em] text-accent">Контакты</div>
+        <h2 class="mt-2 text-[clamp(26px,3.4vw,36px)] font-extrabold">Обсудим ваш ремонт</h2>
+        <p class="mt-3 text-[17px] text-muted">
+          Позвоните или напишите в мессенджер — отвечу, сориентирую по срокам и при необходимости
+          приеду на замер. Работаю в {site.areaServed.join(', ')}.
+        </p>
+        {
+          site.masterName && (
+            <p class="mt-4 text-[15px]">
+              <span class="text-muted">Мастер — </span>
+              <span class="font-display font-semibold">{site.masterName}</span>
+            </p>
+          )
+        }
+        {
+          hasPrice && (
+            <a
+              href={site.priceUrl}
+              target="_blank"
+              rel="noopener"
+              class="mt-5 inline-flex items-center gap-2 text-[15px] font-semibold text-accent"
+            >
+              Прайс-лист (таблица) →
+            </a>
+          )
+        }
+      </div>
+      <div class="flex flex-col gap-3.5">
+        <a href={`tel:${site.phoneHref}`} class="flex items-center gap-3.5 text-[17px]">
+          <span class="grid h-11 w-11 flex-none place-items-center rounded-xl bg-accent-soft text-accent">☎</span>
+          <span class="font-display font-semibold">
+            {site.phoneDisplay}
+            <span class="block text-[13px] font-normal text-muted">Звонок · {site.workingHours}</span>
+          </span>
+        </a>
+        <a href={site.telegram} target="_blank" rel="noopener" class="flex items-center gap-3.5 text-[17px]">
+          <span class="grid h-11 w-11 flex-none place-items-center rounded-xl bg-accent-soft text-accent">✈</span>
+          <span class="font-display font-semibold">
+            Telegram
+            <span class="block text-[13px] font-normal text-muted">Написать в мессенджере</span>
+          </span>
+        </a>
+        <a href={site.whatsapp} target="_blank" rel="noopener" class="flex items-center gap-3.5 text-[17px]">
+          <span class="grid h-11 w-11 flex-none place-items-center rounded-xl bg-accent-soft text-accent">✆</span>
+          <span class="font-display font-semibold">
+            WhatsApp
+            <span class="block text-[13px] font-normal text-muted">Фото объекта — для быстрой оценки</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

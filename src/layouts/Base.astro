@@ -1,0 +1,54 @@
+---
+import '@/styles/global.css';
+import Seo from '@/components/Seo.astro';
+import JsonLd from '@/components/JsonLd.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import FloatingContact from '@/components/FloatingContact.astro';
+import { organizationSchema, servicesSchema } from '@/lib/jsonld';
+
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  jsonld?: unknown[];
+}
+
+const { title, description, path, image, type, jsonld = [] } = Astro.props;
+const base = Astro.site?.href ?? 'https://otdelka19.ru/';
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    {/* Яндекс.Вебмастер — вставить код подтверждения после регистрации сайта */}
+    {/* <meta name="yandex-verification" content="XXXX" /> */}
+
+    <Seo title={title} description={description} path={path} image={image} type={type} />
+
+    <JsonLd data={organizationSchema(base)} />
+    <JsonLd data={servicesSchema(base)} />
+    {jsonld.map((d) => <JsonLd data={d} />)}
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Header />
+    <main class="flex-1"><slot /></main>
+    <Footer />
+    <FloatingContact />
+
+    {/* Яндекс.Метрика — вставить счётчик после создания (metrika.yandex.ru) */}
+  </body>
+</html>

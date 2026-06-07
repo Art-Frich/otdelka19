@@ -1,0 +1,90 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import BeforeAfter from '@/components/BeforeAfter.astro';
+import { breadcrumbSchema, projectSchema } from '@/lib/jsonld';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', ({ data }) => !data.draft);
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const d = project.data;
+const { Content } = await render(project);
+const base = Astro.site?.href ?? 'https://otdelka19.ru/';
+
+const titleLine = d.area ? `${d.title}, ${d.area} м²` : d.title;
+const metaItems = [d.type, d.district, d.duration].filter(Boolean);
+
+const crumbs = breadcrumbSchema(base, [
+  { name: 'Главная', item: '/' },
+  { name: 'Портфолио', item: '/portfolio/' },
+  { name: titleLine, item: `/portfolio/${project.id}/` },
+]);
+const proj = projectSchema(base, project.id, d);
+---
+
+<Base
+  title={d.seo?.title ?? `${titleLine} — ${d.type}`}
+  description={d.seo?.description ?? d.summary}
+  path={`/portfolio/${project.id}/`}
+  image={d.afterImage ?? d.cover}
+  type="article"
+  jsonld={[crumbs, proj]}
+>
+  <article class="py-[56px]">
+    <div class="mx-auto max-w-[920px] px-6">
+      <nav class="text-[13px] text-muted">
+        <a href="/portfolio/" class="hover:text-fg">← Все работы</a>
+      </nav>
+      <h1 class="mt-4 text-[clamp(28px,4vw,44px)] font-extrabold">{titleLine}</h1>
+      <p class="mt-3 max-w-[40em] text-[17px] text-muted">{d.summary}</p>
+
+      <div class="mt-5 flex flex-wrap gap-2">
+        {
+          metaItems.map((m) => (
+            <span class="rounded-full border border-border bg-surface px-3 py-1.5 text-[13px] text-muted">
+              {m}
+            </span>
+          ))
+        }
+      </div>
+
+      <div class="mt-8 overflow-hidden rounded-2xl border border-border">
+        <BeforeAfter before={d.beforeImage} after={d.afterImage || d.cover} alt={d.title} />
+      </div>
+
+      {
+        d.gallery && d.gallery.length > 0 && (
+          <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {d.gallery.map((g) => (
+              <img
+                src={g.src}
+                alt={g.alt ?? d.title}
+                loading="lazy"
+                class="w-full rounded-xl border border-border object-cover"
+              />
+            ))}
+          </div>
+        )
+      }
+
+      <div class="case-body mt-10">
+        <Content />
+      </div>
+
+      <div class="mt-12 rounded-2xl border border-border bg-surface p-8 text-center">
+        <h2 class="text-2xl font-extrabold">Хотите так же?</h2>
+        <p class="mx-auto mt-2 max-w-[34em] text-muted">
+          Позвоните или напишите — обсудим ваш объект, сроки и приеду на замер.
+        </p>
+        <a
+          href="/#kontakty"
+          class="mt-5 inline-flex h-12 items-center rounded-full bg-accent px-6 font-semibold text-accent-fg"
+          >Связаться</a
+        >
+      </div>
+    </div>
+  </article>
+</Base>

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+# Заменить домен на боевой перед публикацией
+Sitemap: https://otdelka19.ru/sitemap-index.xml

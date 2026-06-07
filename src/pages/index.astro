@@ -1,23 +1,53 @@
 ---
-import '@/styles/global.css';
-// Плейсхолдер. Будет заменён реализацией выбранного варианта дизайна
-// (см. /design/index.html — 3 демо на выбор).
+import { getCollection } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import Hero from '@/components/Hero.astro';
+import Services from '@/components/Services.astro';
+import PortfolioGrid from '@/components/PortfolioGrid.astro';
+import Contacts from '@/components/Contacts.astro';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.order - a.data.order)
+  .slice(0, 6);
 ---
 
-<!doctype html>
-<html lang="ru">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Отделка 19 — каркас</title>
-  </head>
-  <body class="bg-bg text-fg font-sans">
-    <main class="mx-auto max-w-3xl px-6 py-24">
-      <h1 class="text-3xl font-bold">otdelka19 — каркас Astro</h1>
-      <p class="mt-4 text-muted">
-        Проект инициализирован. Дизайн выбирается в <code>/design/</code> (3 варианта).
-        После выбора здесь появится реализация лендинга.
-      </p>
-    </main>
-  </body>
-</html>
+<Base path="/">
+  <Hero />
+  <Services />
+
+  <section
+    id="raboty"
+    class="bg-[linear-gradient(180deg,transparent,color-mix(in_srgb,var(--color-accent)_4%,transparent))] py-[72px]"
+  >
+    <div class="mx-auto max-w-[1120px] px-6">
+      <div class="mb-11 max-w-[46em]">
+        <div class="text-[13px] font-semibold uppercase tracking-[0.14em] text-accent">Портфолио</div>
+        <h2 class="mt-2.5 text-[clamp(26px,3.4vw,38px)] font-extrabold">
+          Реальные объекты в Абакане и Черногорске
+        </h2>
+        <p class="mt-3 text-[17px] text-muted">
+          Каждая карточка — отдельный кейс: до/после, метраж, сроки и этапы работ. Нажмите, чтобы
+          посмотреть.
+        </p>
+      </div>
+
+      {
+        projects.length > 0 ? (
+          <PortfolioGrid projects={projects} />
+        ) : (
+          <p class="text-muted">Кейсы скоро появятся.</p>
+        )
+      }
+
+      <div class="mt-10">
+        <a
+          href="/portfolio/"
+          class="inline-flex h-12 items-center rounded-full border border-border px-6 font-semibold transition hover:border-fg"
+          >Все работы →</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <Contacts />
+</Base>

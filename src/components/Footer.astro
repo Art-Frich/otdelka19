@@ -1,0 +1,13 @@
+---
+import site from '@/data/site.json';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-border">
+  <div
+    class="mx-auto flex max-w-[1120px] flex-wrap justify-between gap-3 px-6 py-9 text-sm text-muted"
+  >
+    <div>© {year} {site.brand} · {site.areaServed.join(', ')}</div>
+    <div>Ремонт и отделка квартир под ключ</div>
+  </div>
+</footer>

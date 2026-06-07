@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BeforeAfter from '@/components/BeforeAfter.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const d = project.data;
+const titleLine = d.area ? `${d.title}, ${d.area} м²` : d.title;
+const metaLine = [d.district, d.type, d.duration].filter(Boolean).join(' · ');
+---
+
+<a
+  href={`/portfolio/${project.id}/`}
+  class="group block overflow-hidden rounded-2xl border border-border bg-surface transition hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_28px_50px_-28px_rgba(0,0,0,0.3)]"
+>
+  <BeforeAfter before={d.beforeImage} after={d.afterImage || d.cover} alt={d.title} />
+  <div class="px-5 py-5">
+    <div class="font-display text-base font-bold">{titleLine}</div>
+    {metaLine && <div class="mt-1 text-[13px] text-muted">{metaLine}</div>}
+    <div class="mt-3 inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent">
+      Смотреть кейс →
+    </div>
+  </div>
+</a>

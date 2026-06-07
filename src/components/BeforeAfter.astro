@@ -1,0 +1,48 @@
+---
+interface Props {
+  before?: string;
+  after?: string;
+  alt?: string;
+}
+const { before, after, alt = '' } = Astro.props;
+---
+
+<div class="relative flex aspect-[4/3] w-full overflow-hidden">
+  <div class="relative flex-1 overflow-hidden">
+    {
+      before ? (
+        <img
+          src={before}
+          alt={alt ? `До ремонта — ${alt}` : 'До ремонта'}
+          loading="lazy"
+          class="h-full w-full object-cover [filter:grayscale(.5)_brightness(.92)]"
+        />
+      ) : (
+        <div class="h-full w-full bg-[linear-gradient(135deg,#b9b3a8,#cfc8bb)]"></div>
+      )
+    }
+  </div>
+  <div class="relative flex-1 overflow-hidden">
+    {
+      after ? (
+        <img
+          src={after}
+          alt={alt ? `После ремонта — ${alt}` : 'После ремонта'}
+          loading="lazy"
+          class="h-full w-full object-cover"
+        />
+      ) : (
+        <div class="h-full w-full bg-[linear-gradient(135deg,#e8d6c4,#f6efe6_60%,#dcc4ab)]"></div>
+      )
+    }
+  </div>
+  <div class="absolute inset-y-0 left-1/2 z-10 w-0.5 -translate-x-1/2 bg-white"></div>
+  <span
+    class="absolute left-2.5 top-2.5 z-20 rounded-md bg-fg/70 px-2 py-1 text-[11px] font-semibold tracking-wide text-bg"
+    >ДО</span
+  >
+  <span
+    class="absolute right-2.5 top-2.5 z-20 rounded-md bg-accent px-2 py-1 text-[11px] font-semibold tracking-wide text-accent-fg"
+    >ПОСЛЕ</span
+  >
+</div>
