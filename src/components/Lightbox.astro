@@ -1,0 +1,168 @@
+---
+// Глобальный лайтбокс + логика всех слайдеров «до/после» на странице.
+// Триггер: любой элемент с атрибутом data-lb='{"mode":"compare"|"gallery", ...}'.
+---
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lb__close" id="lb-close" aria-label="Закрыть">✕</button>
+  <div class="lb__inner">
+    <div class="lb__title" id="lb-title"></div>
+    <div class="lb__stage" id="lb-stage"></div>
+    <div id="lb-controls"></div>
+  </div>
+</div>
+
+<script>
+  // --- слайдер «до/после» ---
+  function wireSlider(ba: HTMLElement) {
+    const before = ba.querySelector<HTMLElement>('.ba-before');
+    const handle = ba.querySelector<HTMLElement>('.ba-handle');
+    if (!before || !handle) return;
+    let drag = false;
+    const set = (p: number) => {
+      p = Math.max(0, Math.min(100, p));
+      before.style.clipPath = `inset(0 ${100 - p}% 0 0)`;
+      handle.style.left = p + '%';
+    };
+    const move = (clientX: number) => {
+      const r = ba.getBoundingClientRect();
+      set(((clientX - r.left) / r.width) * 100);
+    };
+    ba.addEventListener('pointerdown', (e) => {
+      drag = true;
+      ba.setPointerCapture?.((e as PointerEvent).pointerId);
+      move((e as PointerEvent).clientX);
+    });
+    ba.addEventListener('pointermove', (e) => {
+      if (drag) move((e as PointerEvent).clientX);
+    });
+    ba.addEventListener('pointerup', () => (drag = false));
+    ba.addEventListener('pointercancel', () => (drag = false));
+    set(50);
+  }
+
+  const esc = (s: string) => (s || '').replace(/"/g, '&quot;');
+  function sliderHTML(before: string, after: string, alt: string) {
+    return `<div class="ba" data-ba>
+      <img class="ba-after" src="${after}" alt="После — ${esc(alt)}" draggable="false">
+      <img class="ba-before" src="${before}" alt="До — ${esc(alt)}" draggable="false">
+      <span class="ba-badge is-before">ДО</span><span class="ba-badge is-after">ПОСЛЕ</span>
+      <div class="ba-handle"><span class="ba-line"></span><span class="ba-grip">⇆</span></div>
+    </div>`;
+  }
+
+  // инициализируем статические слайдеры (карточки, страница кейса)
+  document.querySelectorAll<HTMLElement>('[data-ba]').forEach(wireSlider);
+
+  // --- лайтбокс ---
+  type Img = { src: string; alt?: string };
+  type LbData =
+    | { mode: 'compare'; before: string; after: string; title?: string }
+    | { mode: 'gallery'; images: Img[]; title?: string; start?: number };
+
+  const lb = document.getElementById('lb')!;
+  const stage = document.getElementById('lb-stage')!;
+  const controls = document.getElementById('lb-controls')!;
+  const titleEl = document.getElementById('lb-title')!;
+  let gImages: Img[] = [];
+  let gIndex = 0;
+
+  function renderGallery() {
+    const img = stage.querySelector<HTMLImageElement>('img')!;
+    const counter = controls.querySelector<HTMLElement>('.lb-counter');
+    const it = gImages[gIndex];
+    img.src = it.src;
+    img.alt = it.alt || '';
+    if (counter) counter.textContent = `${gIndex + 1} / ${gImages.length}`;
+  }
+
+  function open(data: LbData) {
+    stage.innerHTML = '';
+    controls.innerHTML = '';
+    titleEl.textContent = data.title || '';
+
+    if (data.mode === 'compare') {
+      stage.innerHTML = `<div class="lb-compare mode-wipe">
+        <div class="lb-wipe">${sliderHTML(data.before, data.after, data.title || '')}</div>
+        <div class="lb-sbs">
+          <div><img src="${data.before}" alt="До"><span class="ba-badge is-before">ДО</span></div>
+          <div><img src="${data.after}" alt="После"><span class="ba-badge is-after">ПОСЛЕ</span></div>
+        </div>
+      </div>`;
+      controls.innerHTML = `<div class="lb-toggle">
+        <button type="button" data-mode="wipe" class="is-active">Слайдер</button>
+        <button type="button" data-mode="sbs">Рядом</button>
+      </div>`;
+      const comp = stage.querySelector<HTMLElement>('.lb-compare')!;
+      wireSlider(stage.querySelector<HTMLElement>('.ba')!);
+      controls.querySelectorAll<HTMLButtonElement>('.lb-toggle button').forEach((b) =>
+        b.addEventListener('click', () => {
+          controls.querySelectorAll('.lb-toggle button').forEach((x) => x.classList.remove('is-active'));
+          b.classList.add('is-active');
+          const sbs = b.dataset.mode === 'sbs';
+          comp.classList.toggle('mode-sbs', sbs);
+          comp.classList.toggle('mode-wipe', !sbs);
+        })
+      );
+    } else {
+      gImages = data.images || [];
+      gIndex = Math.min(Math.max(0, data.start || 0), Math.max(0, gImages.length - 1));
+      stage.innerHTML = `<div class="lb-gallery">
+        <button class="lb-nav prev" type="button" aria-label="Назад">‹</button>
+        <img alt="">
+        <button class="lb-nav next" type="button" aria-label="Вперёд">›</button>
+      </div>`;
+      controls.innerHTML = `<div class="lb-counter"></div>`;
+      const prev = stage.querySelector<HTMLButtonElement>('.prev')!;
+      const next = stage.querySelector<HTMLButtonElement>('.next')!;
+      prev.addEventListener('click', () => {
+        gIndex = (gIndex - 1 + gImages.length) % gImages.length;
+        renderGallery();
+      });
+      next.addEventListener('click', () => {
+        gIndex = (gIndex + 1) % gImages.length;
+        renderGallery();
+      });
+      if (gImages.length < 2) {
+        prev.style.display = 'none';
+        next.style.display = 'none';
+      }
+      renderGallery();
+    }
+
+    lb.classList.add('is-open');
+    lb.setAttribute('aria-hidden', 'false');
+  }
+
+  function close() {
+    lb.classList.remove('is-open');
+    lb.setAttribute('aria-hidden', 'true');
+    setTimeout(() => {
+      stage.innerHTML = '';
+      controls.innerHTML = '';
+      titleEl.textContent = '';
+    }, 250);
+  }
+
+  document.addEventListener('click', (e) => {
+    const trigger = (e.target as HTMLElement).closest('[data-lb]');
+    if (!trigger) return;
+    e.preventDefault();
+    try {
+      open(JSON.parse(trigger.getAttribute('data-lb')!) as LbData);
+    } catch (err) {
+      console.error('Lightbox payload parse error', err);
+    }
+  });
+
+  document.getElementById('lb-close')!.addEventListener('click', close);
+  lb.addEventListener('click', (e) => {
+    if (e.target === lb) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('is-open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowRight') stage.querySelector<HTMLButtonElement>('.lb-nav.next')?.click();
+    if (e.key === 'ArrowLeft') stage.querySelector<HTMLButtonElement>('.lb-nav.prev')?.click();
+  });
+</script>

@@ -5,6 +5,7 @@ import JsonLd from '@/components/JsonLd.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import FloatingContact from '@/components/FloatingContact.astro';
+import Lightbox from '@/components/Lightbox.astro';
 import { organizationSchema, servicesSchema } from '@/lib/jsonld';
 
 interface Props {
@@ -48,6 +49,7 @@ const base = Astro.site?.href ?? 'https://otdelka19.ru/';
     <main class="flex-1"><slot /></main>
     <Footer />
     <FloatingContact />
+    <Lightbox />
 
     {/* Яндекс.Метрика — вставить счётчик после создания (metrika.yandex.ru) */}
   </body>

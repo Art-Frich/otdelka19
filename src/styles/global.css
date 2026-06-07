@@ -95,3 +95,242 @@ h3 {
   color: var(--color-fg);
   font-weight: 700;
 }
+
+/* ---- Слайдер «до/после» ---- */
+.ba {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+  cursor: ew-resize;
+}
+.ba img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-user-drag: none;
+}
+.ba .ba-before {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 50% 0 0);
+  pointer-events: none;
+}
+.ba-badge {
+  position: absolute;
+  top: 12px;
+  z-index: 20;
+  padding: 4px 9px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+.ba-badge.is-before {
+  left: 12px;
+  background: color-mix(in srgb, var(--color-fg) 70%, transparent);
+  color: var(--color-bg);
+}
+.ba-badge.is-after {
+  right: 12px;
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+}
+.ba-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  z-index: 20;
+  pointer-events: none;
+}
+.ba-handle .ba-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  transform: translateX(-1px);
+  background: #fff;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.08);
+}
+.ba-handle .ba-grip {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--color-fg);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.25);
+  font-size: 15px;
+}
+
+/* ---- Лайтбокс ---- */
+.lb {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(12 12 14 / 0.92);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s;
+}
+.lb.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+.lb__inner {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  transform: scale(0.97);
+  transition: transform 0.25s ease;
+}
+.lb.is-open .lb__inner {
+  transform: scale(1);
+}
+.lb__title {
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  text-align: center;
+}
+.lb__close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.1);
+  color: #fff;
+  font-size: 20px;
+  border: 0;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.lb__close:hover {
+  background: rgb(255 255 255 / 0.2);
+}
+.lb__stage {
+  position: relative;
+  width: 100%;
+}
+.lb-compare {
+  position: relative;
+  width: 100%;
+  max-height: 78vh;
+  aspect-ratio: 4 / 3;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.lb-wipe,
+.lb-sbs {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.3s ease;
+}
+.lb-sbs {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  pointer-events: none;
+}
+.lb-sbs > div {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+.lb-sbs img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.lb-compare.mode-sbs .lb-wipe {
+  opacity: 0;
+  pointer-events: none;
+}
+.lb-compare.mode-sbs .lb-sbs {
+  opacity: 1;
+  pointer-events: auto;
+}
+.lb-toggle {
+  display: inline-flex;
+  background: rgb(255 255 255 / 0.1);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+}
+.lb-toggle button {
+  border: 0;
+  background: transparent;
+  color: rgb(255 255 255 / 0.7);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.15s;
+}
+.lb-toggle button.is-active {
+  background: #fff;
+  color: #181818;
+}
+.lb-gallery {
+  position: relative;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+.lb-gallery img {
+  max-width: 100%;
+  max-height: 78vh;
+  border-radius: 12px;
+  object-fit: contain;
+}
+.lb-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.12);
+  color: #fff;
+  border: 0;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.lb-nav:hover {
+  background: rgb(255 255 255 / 0.22);
+}
+.lb-nav.prev {
+  left: 8px;
+}
+.lb-nav.next {
+  right: 8px;
+}
+.lb-counter {
+  color: rgb(255 255 255 / 0.7);
+  font-size: 13px;
+}

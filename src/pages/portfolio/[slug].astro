@@ -16,6 +16,28 @@ const base = Astro.site?.href ?? 'https://otdelka19.ru/';
 
 const titleLine = d.area ? `${d.title}, ${d.area} м²` : d.title;
 const metaItems = [d.type, d.district, d.duration].filter(Boolean);
+const isCompare = !!(d.beforeImage && d.afterImage);
+const cover = d.cover || d.afterImage || d.gallery?.[0]?.src;
+
+const galleryImages: { src: string; alt: string }[] = [];
+if (cover) galleryImages.push({ src: cover, alt: d.title });
+for (const g of d.gallery ?? []) {
+  if (g.src !== cover) galleryImages.push({ src: g.src, alt: g.alt || d.title });
+}
+
+const galleryPayload = (start: number) =>
+  JSON.stringify({ mode: 'gallery', images: galleryImages, title: titleLine, start });
+const comparePayload = JSON.stringify({
+  mode: 'compare',
+  before: d.beforeImage,
+  after: d.afterImage,
+  title: titleLine,
+});
+
+// миниатюры под героем
+const thumbs = isCompare
+  ? galleryImages.map((g, i) => ({ ...g, start: i }))
+  : galleryImages.slice(1).map((g, i) => ({ ...g, start: i + 1 }));
 
 const crumbs = breadcrumbSchema(base, [
   { name: 'Главная', item: '/' },
@@ -29,12 +51,12 @@ const proj = projectSchema(base, project.id, d);
   title={d.seo?.title ?? `${titleLine} — ${d.type}`}
   description={d.seo?.description ?? d.summary}
   path={`/portfolio/${project.id}/`}
-  image={d.afterImage ?? d.cover}
+  image={cover}
   type="article"
   jsonld={[crumbs, proj]}
 >
   <article class="py-[56px]">
-    <div class="mx-auto max-w-[920px] px-6">
+    <div class="mx-auto max-w-[960px] px-6">
       <nav class="text-[13px] text-muted">
         <a href="/portfolio/" class="hover:text-fg">← Все работы</a>
       </nav>
@@ -51,20 +73,49 @@ const proj = projectSchema(base, project.id, d);
         }
       </div>
 
-      <div class="mt-8 overflow-hidden rounded-2xl border border-border">
-        <BeforeAfter before={d.beforeImage} after={d.afterImage || d.cover} alt={d.title} />
+      {/* герой */}
+      <div class="relative mt-8 overflow-hidden rounded-2xl border border-border">
+        {
+          isCompare ? (
+            <>
+              <div class="aspect-[4/3]">
+                <BeforeAfter before={d.beforeImage!} after={d.afterImage!} alt={d.title} />
+              </div>
+              <button
+                type="button"
+                data-lb={comparePayload}
+                aria-label="Открыть на весь экран"
+                class="absolute bottom-3 right-3 z-30 inline-flex items-center gap-1.5 rounded-full bg-fg/75 px-3 py-1.5 text-xs font-semibold text-bg backdrop-blur transition hover:bg-fg"
+              >
+                До / После <span class="text-[13px]">⤢</span>
+              </button>
+            </>
+          ) : cover ? (
+            <button type="button" data-lb={galleryPayload(0)} class="block w-full" aria-label="Открыть фото">
+              <img src={cover} alt={d.title} class="aspect-[4/3] w-full object-cover" />
+            </button>
+          ) : null
+        }
       </div>
 
+      {/* миниатюры */}
       {
-        d.gallery && d.gallery.length > 0 && (
-          <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {d.gallery.map((g) => (
-              <img
-                src={g.src}
-                alt={g.alt ?? d.title}
-                loading="lazy"
-                class="w-full rounded-xl border border-border object-cover"
-              />
+        thumbs.length > 0 && (
+          <div class="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-4">
+            {thumbs.map((t) => (
+              <button
+                type="button"
+                data-lb={galleryPayload(t.start)}
+                class="aspect-square overflow-hidden rounded-xl border border-border"
+                aria-label="Открыть фото"
+              >
+                <img
+                  src={t.src}
+                  alt={t.alt}
+                  loading="lazy"
+                  class="h-full w-full object-cover transition duration-300 hover:scale-105"
+                />
+              </button>
             ))}
           </div>
         )
