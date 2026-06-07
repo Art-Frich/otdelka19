@@ -1,0 +1,44 @@
+---
+import site from '@/data/site.json';
+const photo = site.masterPhoto || '/img/master/portrait.webp';
+---
+
+{
+  site.masterName && (
+    <section id="o-mastere" class="py-[72px]">
+      <div class="mx-auto max-w-[1120px] px-6">
+        <div class="grid grid-cols-1 items-center gap-10 md:grid-cols-[0.8fr_1.2fr]">
+          <div class="mx-auto w-full max-w-[360px]">
+            <img
+              src={photo}
+              alt={`Мастер-отделочник ${site.masterName}, Абакан`}
+              loading="lazy"
+              class="w-full rounded-2xl border border-border object-cover shadow-[0_30px_60px_-30px_rgba(0,0,0,0.3)]"
+            />
+          </div>
+          <div>
+            <div class="text-[13px] font-semibold uppercase tracking-[0.14em] text-accent">
+              О мастере
+            </div>
+            <h2 class="mt-2.5 text-[clamp(26px,3.4vw,38px)] font-extrabold">{site.masterName}</h2>
+            {site.about && <p class="mt-4 max-w-[40em] text-[17px] text-muted">{site.about}</p>}
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a
+                href={`tel:${site.phoneHref}`}
+                class="inline-flex h-12 items-center rounded-full bg-accent px-6 font-semibold text-accent-fg transition hover:brightness-110"
+              >
+                Позвонить
+              </a>
+              <a
+                href="/portfolio/"
+                class="inline-flex h-12 items-center rounded-full border border-border px-6 font-semibold transition hover:border-fg"
+              >
+                Мои работы
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

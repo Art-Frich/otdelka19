@@ -92,6 +92,8 @@ collections:
         fields:
           - { name: brand, label: 'Бренд', widget: string }
           - { name: masterName, label: 'Имя мастера', widget: string, required: false }
+          - { name: masterPhoto, label: 'Фото мастера', widget: image, required: false }
+          - { name: about, label: 'О мастере (текст)', widget: text, required: false }
           - { name: tagline, label: 'Слоган', widget: string }
           - { name: phoneDisplay, label: 'Телефон (как показывать)', widget: string }
           - { name: phoneHref, label: 'Телефон для звонка (формат +70000000000)', widget: string }
