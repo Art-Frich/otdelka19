@@ -1,0 +1,143 @@
+# Sveltia CMS — конфигурация
+# Бэкенд — GitHub. Вход в админку проще всего по личному токену (Personal Access
+# Token, fine-grained, доступ только к этому репозиторию) — это полностью serverless,
+# никакого OAuth-релея не нужно. OAuth (вход одной кнопкой) опционален: для него
+# поднимается мини-функция sveltia-cms-auth (напр. на Yandex Cloud Functions).
+# Перед боевым использованием: создать репозиторий на GitHub и указать его в backend.repo.
+# Локально (npm run dev) редактирование работает через local_backend без GitHub.
+
+backend:
+  name: github
+  repo: your-user/otdelka19 # ЗАМЕНИТЬ на ваш GitHub-репозиторий (owner/repo)
+  branch: main
+  auth_methods:
+    - token
+    - oauth
+
+local_backend: true
+
+locale: ru
+media_folder: 'public/img/uploads'
+public_folder: '/img/uploads'
+
+collections:
+  - name: projects
+    label: 'Кейсы портфолио'
+    label_singular: 'Кейс'
+    description: 'Объекты до/после. Каждый кейс — отдельная страница на сайте.'
+    folder: 'src/content/projects'
+    create: true
+    slug: '{{slug}}'
+    extension: md
+    format: frontmatter
+    sortable_fields: ['order', 'publishDate', 'title']
+    fields:
+      - { name: title, label: 'Заголовок (объект)', widget: string, hint: 'Напр.: 2-комнатная квартира' }
+      - {
+          name: type,
+          label: 'Тип работ',
+          widget: select,
+          options: ['под ключ', 'чистовая отделка', 'санузел', 'косметический ремонт'],
+        }
+      - { name: summary, label: 'Краткое описание', widget: text }
+      - { name: area, label: 'Площадь, м²', widget: number, required: false, value_type: int, min: 1 }
+      - { name: district, label: 'Район / адрес', widget: string, required: false }
+      - { name: duration, label: 'Сроки (напр.: 45 дней)', widget: string, required: false }
+      - { name: beforeImage, label: 'Фото ДО', widget: image, required: false }
+      - {
+          name: afterImage,
+          label: 'Фото ПОСЛЕ (оно же обложка)',
+          widget: image,
+          required: false,
+        }
+      - name: gallery
+        label: 'Галерея (доп. фото)'
+        widget: list
+        required: false
+        fields:
+          - { name: src, label: 'Фото', widget: image }
+          - { name: alt, label: 'Подпись', widget: string, required: false }
+      - { name: order, label: 'Порядок (больше = выше)', widget: number, default: 0, value_type: int }
+      - {
+          name: publishDate,
+          label: 'Дата',
+          widget: datetime,
+          required: false,
+          date_format: 'YYYY-MM-DD',
+          time_format: false,
+        }
+      - { name: draft, label: 'Черновик (не публиковать)', widget: boolean, default: false }
+      - name: seo
+        label: 'SEO (необязательно)'
+        widget: object
+        collapsed: true
+        required: false
+        fields:
+          - { name: title, label: 'SEO заголовок', widget: string, required: false }
+          - { name: description, label: 'SEO описание', widget: text, required: false }
+      - {
+          name: body,
+          label: 'Описание работ (этапы)',
+          widget: markdown,
+          required: false,
+        }
+
+  - name: settings
+    label: 'Настройки сайта'
+    editor: { preview: false }
+    files:
+      - name: site
+        label: 'Контакты и тексты'
+        file: 'src/data/site.json'
+        fields:
+          - { name: brand, label: 'Бренд', widget: string }
+          - { name: masterName, label: 'Имя мастера', widget: string, required: false }
+          - { name: tagline, label: 'Слоган', widget: string }
+          - { name: phoneDisplay, label: 'Телефон (как показывать)', widget: string }
+          - { name: phoneHref, label: 'Телефон для звонка (формат +70000000000)', widget: string }
+          - { name: telegram, label: 'Telegram (ссылка)', widget: string }
+          - { name: whatsapp, label: 'WhatsApp (ссылка)', widget: string }
+          - { name: workingHours, label: 'Часы работы', widget: string }
+          - { name: city, label: 'Город', widget: string }
+          - {
+              name: areaServed,
+              label: 'География (города)',
+              widget: list,
+              field: { name: city, label: 'Город', widget: string },
+            }
+          - {
+              name: priceUrl,
+              label: 'Ссылка на прайс (гугл-таблица) — необязательно',
+              widget: string,
+              required: false,
+            }
+          - name: hero
+            label: 'Первый экран'
+            widget: object
+            fields:
+              - { name: eyebrow, label: 'Надзаголовок', widget: string }
+              - { name: title, label: 'Заголовок H1', widget: string }
+              - { name: lead, label: 'Подзаголовок', widget: text }
+              - name: stats
+                label: 'Цифры (3 шт.)'
+                widget: list
+                fields:
+                  - { name: n, label: 'Значение', widget: string }
+                  - { name: l, label: 'Подпись', widget: string }
+          - { name: servicesIntro, label: 'Услуги — вступление', widget: text }
+          - name: services
+            label: 'Услуги'
+            widget: list
+            fields:
+              - { name: icon, label: 'Иконка (символ)', widget: string }
+              - { name: title, label: 'Название', widget: string }
+              - { name: text, label: 'Описание', widget: text }
+          - name: seo
+            label: 'SEO по умолчанию'
+            widget: object
+            collapsed: true
+            fields:
+              - { name: titleDefault, label: 'Заголовок главной', widget: string }
+              - { name: titleTemplate, label: 'Шаблон заголовка (%s — страница)', widget: string }
+              - { name: description, label: 'Описание', widget: text }
+              - { name: ogImage, label: 'OG-картинка (путь)', widget: string }
