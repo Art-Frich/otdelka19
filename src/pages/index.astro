@@ -19,10 +19,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
   <About />
   <Services />
 
-  <section
-    id="raboty"
-    class="bg-[linear-gradient(180deg,transparent,color-mix(in_srgb,var(--color-accent)_4%,transparent))] py-[72px]"
-  >
+  <section id="raboty" class="py-[72px]">
     <div class="container-x">
       <SectionHead
         class="mb-11 max-w-[46em]"
