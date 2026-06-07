@@ -14,5 +14,5 @@ export default defineConfig({
   site: SITE,
   output: 'static',
   trailingSlash: 'always',
-  integrations: [sitemap(), mdx()],
+  integrations: [sitemap({ filter: (page) => !page.includes('/admin') }), mdx()],
 });
