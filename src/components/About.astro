@@ -18,8 +18,8 @@ import { telHref } from '@/lib/contacts';
           </div>
           <h2 class="mt-2.5 text-[clamp(26px,3.4vw,38px)] font-extrabold">{site.masterName}</h2>
 
-          {/* Галерея фото мастера — мобилка, под фразой «О мастере» */}
-          <MasterGallery class="mx-auto mt-6 w-full max-w-[300px] md:hidden" />
+          {/* Галерея фото мастера — мобилка, под фразой «О мастере» (во всю ширину контента) */}
+          <MasterGallery class="mt-6 w-full md:hidden" />
 
           {site.about && <p class="mt-6 max-w-[40em] text-[17px] text-muted">{site.about}</p>}
           <div class="mt-6 flex flex-wrap gap-3">
