@@ -3,17 +3,30 @@ import site from '@/data/site.json';
 import Button from '@/components/Button.astro';
 import { telHref } from '@/lib/contacts';
 const { hero } = site;
+const heroAlt = 'Пример ремонта квартиры под ключ — Абакан';
 ---
 
-<section class="pt-[88px] pb-16">
-  <div
-    class="container-x grid grid-cols-1 items-center gap-14 md:grid-cols-[1.1fr_0.9fr]"
-  >
+<section class="pt-[64px] pb-16 md:pt-[88px]">
+  <div class="container-x grid grid-cols-1 items-center gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-14">
     <div>
       <div class="text-[13px] font-semibold uppercase tracking-[0.14em] text-accent">
         {hero.eyebrow}
       </div>
       <h1 class="mt-4 text-[clamp(34px,5vw,58px)] font-extrabold">{hero.title}</h1>
+
+      {/* Фото кухни сразу под заголовком — только мобилка */}
+      <div
+        class="mt-6 aspect-[16/11] overflow-hidden rounded-2xl border border-border shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)] md:hidden"
+      >
+        {
+          hero.image ? (
+            <img src={hero.image} alt={heroAlt} class="h-full w-full object-cover" />
+          ) : (
+            <div class="h-full w-full bg-[linear-gradient(140deg,#e9dccb,#f6efe6_50%,#d7bda3)]" />
+          )
+        }
+      </div>
+
       <p class="mt-5 max-w-[30em] text-lg text-muted">{hero.lead}</p>
       <div class="mt-8 flex flex-wrap gap-3.5">
         <Button href={telHref}>Позвонить мастеру</Button>
@@ -32,22 +45,16 @@ const { hero } = site;
         )
       }
     </div>
+
+    {/* Фото — десктоп, правая колонка */}
     <div
-      class="aspect-[16/11] overflow-hidden rounded-2xl border border-border shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)] md:aspect-[4/5]"
+      class="hidden aspect-[4/5] overflow-hidden rounded-2xl border border-border shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)] md:block"
     >
       {
         hero.image ? (
-          <img
-            src={hero.image}
-            alt="Пример ремонта квартиры под ключ — Абакан"
-            class="h-full w-full object-cover"
-          />
+          <img src={hero.image} alt={heroAlt} class="h-full w-full object-cover" />
         ) : (
-          <div class="relative h-full w-full bg-[linear-gradient(140deg,#e9dccb,#f6efe6_50%,#d7bda3)]">
-            <span class="absolute bottom-3 left-3 rounded-lg bg-fg/80 px-2.5 py-1 text-xs text-bg">
-              фото объекта · после ремонта
-            </span>
-          </div>
+          <div class="h-full w-full bg-[linear-gradient(140deg,#e9dccb,#f6efe6_50%,#d7bda3)]" />
         )
       }
     </div>
