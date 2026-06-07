@@ -1,0 +1,34 @@
+---
+// Незаметная подпись разработчика (по аналогии с x-avto Footer/CreatedBy).
+const tg = 'https://t.me/Frich22';
+const mail = 'mailto:frich.g22@gmail.com';
+---
+
+<div class="mt-8 flex items-center justify-center gap-2 text-[11px] text-muted/55">
+  <span>
+    © сайт создан <a
+      href={tg}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="border-b border-transparent transition-colors hover:border-accent hover:text-accent"
+      >@Frich22</a
+    >
+  </span>
+  <span class="h-3 w-px bg-border"></span>
+  <a href={mail} aria-label="Написать на почту" class="transition-colors hover:text-accent">
+    <svg
+      viewBox="0 0 24 24"
+      width="13"
+      height="13"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+      <path d="m3 7 9 6 9-6"></path>
+    </svg>
+  </a>
+</div>
