@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '@/layouts/Base.astro';
 import BeforeAfter from '@/components/BeforeAfter.astro';
+import Button from '@/components/Button.astro';
 import { breadcrumbSchema, projectSchema } from '@/lib/jsonld';
 
 export async function getStaticPaths() {
@@ -130,11 +131,7 @@ const proj = projectSchema(base, project.id, d);
         <p class="mx-auto mt-2 max-w-[34em] text-muted">
           Позвоните или напишите — обсудим ваш объект, сроки и приеду на замер.
         </p>
-        <a
-          href="/#kontakty"
-          class="mt-5 inline-flex h-12 items-center rounded-full bg-accent px-6 font-semibold text-accent-fg"
-          >Связаться</a
-        >
+        <Button href="/#kontakty" class="mt-5">Связаться</Button>
       </div>
     </div>
   </article>

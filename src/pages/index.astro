@@ -6,6 +6,7 @@ import About from '@/components/About.astro';
 import Services from '@/components/Services.astro';
 import PortfolioGrid from '@/components/PortfolioGrid.astro';
 import Contacts from '@/components/Contacts.astro';
+import Button from '@/components/Button.astro';
 
 const projects = (await getCollection('projects', ({ data }) => !data.draft))
   .sort((a, b) => b.data.order - a.data.order)
@@ -41,11 +42,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
       }
 
       <div class="mt-10">
-        <a
-          href="/portfolio/"
-          class="inline-flex h-12 items-center rounded-full border border-border px-6 font-semibold transition hover:border-fg"
-          >Все работы →</a
-        >
+        <Button href="/portfolio/" variant="secondary">Все работы →</Button>
       </div>
     </div>
   </section>
