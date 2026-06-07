@@ -3,6 +3,7 @@ import site from '@/data/site.json';
 import SocialLinks from '@/components/SocialLinks.astro';
 import Button from '@/components/Button.astro';
 import { telHref } from '@/lib/contacts';
+import { withBase } from '@/lib/url';
 
 const nav = [
   { href: '/#uslugi', label: 'Услуги' },
@@ -13,7 +14,7 @@ const nav = [
 
 <header class="sticky top-0 z-30 border-b border-border bg-bg/85 backdrop-blur">
   <div class="container-x flex h-[72px] items-center justify-between">
-    <a href="/" class="leading-none">
+    <a href={withBase('/')} class="leading-none">
       <span class="font-display text-xl font-extrabold tracking-tight"
         >ОТДЕЛКА<span class="text-accent">19</span></span
       >
@@ -26,7 +27,7 @@ const nav = [
       }
     </a>
     <nav class="hidden gap-8 text-[15px] text-muted md:flex">
-      {nav.map((n) => <a href={n.href} class="transition hover:text-fg">{n.label}</a>)}
+      {nav.map((n) => <a href={withBase(n.href)} class="transition hover:text-fg">{n.label}</a>)}
     </nav>
     <div class="flex items-center gap-3">
       <SocialLinks

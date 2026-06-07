@@ -1,5 +1,7 @@
 ---
 // Единая кнопка/ссылка с вариантами. Убирает дублирование инлайновых классов.
+import { withBase } from '@/lib/url';
+
 interface Props {
   href?: string;
   variant?: 'primary' | 'secondary';
@@ -25,7 +27,7 @@ const variants = {
 
 const cls = [base, sizes[size], variants[variant], className].filter(Boolean).join(' ');
 const Tag = href ? 'a' : 'button';
-const attrs = href ? { href } : { type: type ?? 'button' };
+const attrs = href ? { href: withBase(href) } : { type: type ?? 'button' };
 ---
 
 <Tag class={cls} {...attrs} {...rest}><slot /></Tag>

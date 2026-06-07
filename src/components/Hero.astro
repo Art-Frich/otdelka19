@@ -2,7 +2,9 @@
 import site from '@/data/site.json';
 import Button from '@/components/Button.astro';
 import { telHref } from '@/lib/contacts';
+import { withBase } from '@/lib/url';
 const { hero } = site;
+const heroImage = withBase(hero.image);
 const heroAlt = 'Пример ремонта квартиры под ключ — Абакан';
 ---
 
@@ -20,7 +22,7 @@ const heroAlt = 'Пример ремонта квартиры под ключ �
       >
         {
           hero.image ? (
-            <img src={hero.image} alt={heroAlt} class="h-full w-full object-cover" />
+            <img src={heroImage} alt={heroAlt} class="h-full w-full object-cover" />
           ) : (
             <div class="h-full w-full bg-[linear-gradient(140deg,#e9dccb,#f6efe6_50%,#d7bda3)]" />
           )
@@ -52,7 +54,7 @@ const heroAlt = 'Пример ремонта квартиры под ключ �
     >
       {
         hero.image ? (
-          <img src={hero.image} alt={heroAlt} class="h-full w-full object-cover" />
+          <img src={heroImage} alt={heroAlt} class="h-full w-full object-cover" />
         ) : (
           <div class="h-full w-full bg-[linear-gradient(140deg,#e9dccb,#f6efe6_50%,#d7bda3)]" />
         )

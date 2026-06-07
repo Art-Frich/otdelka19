@@ -1,5 +1,6 @@
 ---
 import site from '@/data/site.json';
+import { withBase } from '@/lib/url';
 
 interface Props {
   title?: string;
@@ -14,8 +15,8 @@ const base = Astro.site?.href ?? 'https://otdelka19.ru/';
 
 const fullTitle = title ? site.seo.titleTemplate.replace('%s', title) : site.seo.titleDefault;
 const desc = description ?? site.seo.description;
-const canonical = new URL(path, base).href;
-const ogImage = new URL((image ?? site.seo.ogImage).replace(/^\//, ''), base).href;
+const canonical = new URL(withBase(path).replace(/^\//, ''), base).href;
+const ogImage = new URL(withBase(image ?? site.seo.ogImage).replace(/^\//, ''), base).href;
 ---
 
 <title>{fullTitle}</title>

@@ -11,15 +11,16 @@ interface Props {
   showType?: boolean;
 }
 const { project, showType = false } = Astro.props;
-const { d, cover, gallery, comparePayload, galleryPayload } = projectView(project);
+const { d, cover, gallery, beforeImage, afterImage, comparePayload, galleryPayload } =
+  projectView(project);
 const count = gallery.length;
 const photoLabel = count > 1 ? `${count} фото` : 'Открыть';
 ---
 
 {
-  d.beforeImage && d.afterImage ? (
+  beforeImage && afterImage ? (
     <div class="relative aspect-[4/3] overflow-hidden transition-shadow duration-200 has-[.media-trigger:hover]:ring-[3px] has-[.media-trigger:hover]:ring-accent has-[.media-trigger:hover]:ring-inset">
-      <BeforeAfter before={d.beforeImage} after={d.afterImage} alt={d.title} />
+      <BeforeAfter before={beforeImage} after={afterImage} alt={d.title} />
       <button
         type="button"
         data-lb={comparePayload}

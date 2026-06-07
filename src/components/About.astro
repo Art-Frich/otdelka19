@@ -2,7 +2,8 @@
 import site from '@/data/site.json';
 import Button from '@/components/Button.astro';
 import { telHref } from '@/lib/contacts';
-const photo = site.masterPhoto || '/img/master/portrait.webp';
+import { withBase } from '@/lib/url';
+const photo = withBase(site.masterPhoto || '/img/master/portrait.webp');
 const alt = `Мастер-отделочник ${site.masterName}, Абакан`;
 ---
 
