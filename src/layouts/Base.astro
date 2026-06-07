@@ -6,6 +6,7 @@ import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import FloatingContact from '@/components/FloatingContact.astro';
 import Lightbox from '@/components/Lightbox.astro';
+import Aurora from '@/components/Aurora.astro';
 import { organizationSchema, servicesSchema } from '@/lib/jsonld';
 
 interface Props {
@@ -48,6 +49,7 @@ const base = Astro.site?.href ?? 'https://otdelka19.ru/';
     {jsonld.map((d) => <JsonLd data={d} />)}
   </head>
   <body class="flex min-h-screen flex-col">
+    <Aurora />
     <Header />
     <main class="flex-1"><slot /></main>
     <Footer />
