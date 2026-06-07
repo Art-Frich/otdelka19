@@ -3,7 +3,9 @@ title: Светлая спальня
 type: чистовая отделка
 summary: 'Спальня: декоративные обои на акцентной стене и тёплый ламинат, аккуратная чистовая отделка.'
 district: Абакан
-cover: /img/projects/spalnya/main.webp
+gallery:
+  - src: /img/projects/spalnya/main.webp
+    alt: 'Светлая спальня с декоративными обоями'
 order: 20
 ---
 

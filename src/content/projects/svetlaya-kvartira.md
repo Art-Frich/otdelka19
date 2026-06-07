@@ -3,8 +3,9 @@ title: Светлая квартира с акцентной стеной
 type: чистовая отделка
 summary: 'Чистовая отделка квартиры со светлым полом и акцентной стеной с фотообоями.'
 district: Абакан
-cover: /img/projects/svetlaya-kvartira/room.webp
 gallery:
+  - src: /img/projects/svetlaya-kvartira/room.webp
+    alt: 'Светлая комната после чистовой отделки'
   - src: /img/projects/svetlaya-kvartira/jungle-wall.webp
     alt: 'Акцентная стена с фотообоями джунгли'
 order: 30

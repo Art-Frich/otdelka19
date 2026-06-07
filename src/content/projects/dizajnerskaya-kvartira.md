@@ -3,8 +3,9 @@ title: Дизайнерская квартира под ключ
 type: под ключ
 summary: 'Полный дизайнерский ремонт под ключ: рейфельные панели, скрытые двери, классические молдинги, дизайн-кухня и гардеробная.'
 district: Абакан
-cover: /img/projects/dizajnerskaya-kvartira/moldings.webp
 gallery:
+  - src: /img/projects/dizajnerskaya-kvartira/moldings.webp
+    alt: 'Классические молдинги и скрытые двери'
   - src: /img/projects/dizajnerskaya-kvartira/kitchen.webp
     alt: 'Дизайнерская кухня с сине-серым мрамором и золотом'
   - src: /img/projects/dizajnerskaya-kvartira/reeded-panel.webp

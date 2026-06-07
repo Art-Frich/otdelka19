@@ -3,7 +3,9 @@ title: Санузел под ключ
 type: санузел
 summary: 'Санузел под ключ: плитка кабанчик, пол-ёлочка из керамогранита под дерево, линейный трап.'
 district: Абакан
-cover: /img/projects/sanuzel-kabanchik/main.webp
+gallery:
+  - src: /img/projects/sanuzel-kabanchik/main.webp
+    alt: 'Санузел с плиткой кабанчик и полом-ёлочкой'
 order: 40
 ---
 

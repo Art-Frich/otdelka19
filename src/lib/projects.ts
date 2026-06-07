@@ -11,23 +11,25 @@ export function projectView(project: CollectionEntry<'projects'>) {
   const titleLine = d.area ? `${d.title}, ${d.area} м²` : d.title;
   const metaLine = [d.district, d.type, d.duration].filter(Boolean).join(' · ');
   const isCompare = !!(d.beforeImage && d.afterImage);
-  const cover = d.cover || d.afterImage || d.gallery?.[0]?.src;
 
-  // Доп. фото из CMS-галереи (этапы, детали)
+  // Фото из CMS-галереи
   const extras: ProjectImage[] = (d.gallery ?? []).map((g) => ({ src: g.src, alt: g.alt || d.title }));
 
-  // Галерея кейса. Для «до/после»-проектов кадры ДО и ПОСЛЕ добавляются
-  // в галерею автоматически — дублировать их в CMS-галерее не нужно.
+  // Галерея кейса + обложка карточки.
+  // Обложка = слайдер (для «до/после») ИЛИ первое фото галереи.
+  // Для «до/после» кадры ДО и ПОСЛЕ добавляются в галерею автоматически.
   let gallery: ProjectImage[];
+  let cover: string | undefined;
   if (d.beforeImage && d.afterImage) {
     gallery = [
       { src: d.beforeImage, alt: `${d.title} — до ремонта` },
       { src: d.afterImage, alt: `${d.title} — после ремонта` },
       ...extras,
     ];
+    cover = d.afterImage;
   } else {
-    gallery = cover ? [{ src: cover, alt: d.title }] : [];
-    for (const g of extras) if (g.src !== cover) gallery.push(g);
+    gallery = extras;
+    cover = extras[0]?.src;
   }
 
   const href = `/portfolio/${project.id}/`;

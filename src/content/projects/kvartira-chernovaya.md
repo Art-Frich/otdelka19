@@ -5,7 +5,6 @@ summary: 'Квартира в работе: демонтаж, стяжка и н
 district: Абакан
 beforeImage: /img/projects/kvartira-chernovaya/before.webp
 afterImage: /img/projects/kvartira-chernovaya/after.webp
-cover: /img/projects/kvartira-chernovaya/after.webp
 gallery:
   - src: /img/projects/kvartira-chernovaya/floor.webp
     alt: 'Укладка напольного покрытия'

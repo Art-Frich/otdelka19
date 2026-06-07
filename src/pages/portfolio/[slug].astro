@@ -29,7 +29,7 @@ const crumbs = breadcrumbSchema(base, [
   { name: 'Портфолио', item: '/portfolio/' },
   { name: titleLine, item: `/portfolio/${project.id}/` },
 ]);
-const proj = projectSchema(base, project.id, d);
+const proj = projectSchema(base, project.id, { ...d, cover });
 ---
 
 <Base

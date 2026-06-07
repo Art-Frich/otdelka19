@@ -17,7 +17,6 @@ const projects = defineCollection({
     area: z.number().optional(), // м²
     district: z.string().optional(), // район / адрес
     duration: z.string().optional(), // "45 дней"
-    cover: z.string().optional(),
     beforeImage: z.string().optional(),
     afterImage: z.string().optional(),
     gallery: z

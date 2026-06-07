@@ -3,7 +3,9 @@ title: Душевая с деревянной стеной
 type: санузел
 summary: 'Душевая зона: керамогранит под дерево, стеклянная перегородка, скрытый линейный трап.'
 district: Абакан
-cover: /img/projects/dushevaya-derevo/main.webp
+gallery:
+  - src: /img/projects/dushevaya-derevo/main.webp
+    alt: 'Душевая с акцентной стеной из керамогранита под дерево'
 order: 35
 ---
 

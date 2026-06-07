@@ -3,7 +3,9 @@ title: Кухня под ключ с мраморным фартуком
 type: чистовая отделка
 summary: 'Кухонная зона под ключ: мраморный керамогранит на фартуке, белый верх и тёплый низ, встроенная техника.'
 district: Абакан
-cover: /img/projects/kuhnya-mramor/kitchen.webp
+gallery:
+  - src: /img/projects/kuhnya-mramor/kitchen.webp
+    alt: 'Кухня с мраморным фартуком из керамогранита'
 order: 50
 publishDate: 2024-12-22
 ---

@@ -57,13 +57,6 @@ collections:
       - { name: area, label: 'Площадь, м²', widget: number, required: false, value_type: int, min: 1 }
       - { name: district, label: 'Район / адрес', widget: string, required: false }
       - { name: duration, label: 'Сроки (напр.: 45 дней)', widget: string, required: false }
-      - {
-          name: cover,
-          label: 'Обложка карточки',
-          widget: image,
-          required: false,
-          hint: 'Главное фото в сетке портфолио. Если пусто — берётся «Фото ПОСЛЕ» или первое из галереи.',
-        }
       - { name: beforeImage, label: 'Фото ДО (для слайдера)', widget: image, required: false }
       - {
           name: afterImage,
@@ -72,10 +65,10 @@ collections:
           required: false,
         }
       - name: gallery
-        label: 'Галерея (доп. фото)'
+        label: 'Фото объекта (галерея)'
         widget: list
         required: false
-        hint: 'Дополнительные фото объекта: этапы, детали. Фото ДО и ПОСЛЕ сюда добавлять НЕ нужно — они автоматически попадают в галерею кейса.'
+        hint: 'Первое фото — обложка карточки. Для кейсов с «до/после» (есть слайдер) сюда добавляйте только дополнительные кадры — до/после попадут в галерею сами.'
         fields:
           - { name: src, label: 'Фото', widget: image }
           - { name: alt, label: 'Подпись', widget: string, required: false }
