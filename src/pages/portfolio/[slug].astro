@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '@/layouts/Base.astro';
-import BeforeAfter from '@/components/BeforeAfter.astro';
+import PortfolioMedia from '@/components/PortfolioMedia.astro';
 import Button from '@/components/Button.astro';
 import { projectView } from '@/lib/projects';
 import { breadcrumbSchema, projectSchema } from '@/lib/jsonld';
@@ -12,8 +12,7 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { d, titleLine, isCompare, cover, gallery, comparePayload, galleryPayload } =
-  projectView(project);
+const { d, titleLine, isCompare, cover, gallery, galleryPayload } = projectView(project);
 const { Content } = await render(project);
 const base = Astro.site?.href ?? 'https://otdelka19.ru/';
 
@@ -59,28 +58,8 @@ const proj = projectSchema(base, project.id, { ...d, cover });
       </div>
 
       {/* герой */}
-      <div class="relative mt-8 overflow-hidden rounded-2xl border border-border">
-        {
-          d.beforeImage && d.afterImage ? (
-            <>
-              <div class="aspect-[4/3]">
-                <BeforeAfter before={d.beforeImage} after={d.afterImage} alt={d.title} />
-              </div>
-              <button
-                type="button"
-                data-lb={comparePayload}
-                aria-label="Открыть на весь экран"
-                class="absolute bottom-3 right-3 z-30 inline-flex items-center gap-1.5 rounded-full bg-fg/75 px-3 py-1.5 text-xs font-semibold text-bg backdrop-blur transition hover:bg-fg"
-              >
-                До / После <span class="text-[13px]">⤢</span>
-              </button>
-            </>
-          ) : cover ? (
-            <button type="button" data-lb={galleryPayload(0)} class="block w-full" aria-label="Открыть фото">
-              <img src={cover} alt={d.title} class="aspect-[4/3] w-full object-cover" />
-            </button>
-          ) : null
-        }
+      <div class="mt-8 overflow-hidden rounded-2xl border border-border">
+        <PortfolioMedia project={project} />
       </div>
 
       {/* миниатюры */}
@@ -91,14 +70,14 @@ const proj = projectSchema(base, project.id, { ...d, cover });
               <button
                 type="button"
                 data-lb={galleryPayload(t.start)}
-                class="aspect-square overflow-hidden rounded-xl border border-border"
+                class="group/t aspect-square cursor-pointer overflow-hidden rounded-xl border border-border transition hover:ring-[3px] hover:ring-accent hover:ring-inset"
                 aria-label="Открыть фото"
               >
                 <img
                   src={t.src}
                   alt={t.alt}
                   loading="lazy"
-                  class="h-full w-full object-cover transition duration-300 hover:scale-105"
+                  class="h-full w-full object-cover transition duration-300 group-hover/t:scale-105"
                 />
               </button>
             ))}
