@@ -1,6 +1,6 @@
 ---
 import Button from '@/components/Button.astro';
-import MasterCollage from '@/components/MasterCollage.astro';
+import MasterGallery from '@/components/MasterGallery.astro';
 import site from '@/data/site.json';
 import { telHref } from '@/lib/contacts';
 ---
@@ -9,8 +9,8 @@ import { telHref } from '@/lib/contacts';
   site.masterName && (
     <section id="o-mastere" class="py-[72px]">
       <div class="container-x grid grid-cols-1 items-center gap-8 md:grid-cols-[0.8fr_1.2fr] md:gap-10">
-        {/* Фото-коллаж — десктоп, слева */}
-        <MasterCollage class="mx-auto hidden w-full max-w-[400px] md:order-1 md:block" />
+        {/* Галерея фото мастера — десктоп, слева */}
+        <MasterGallery class="mx-auto hidden w-full max-w-[400px] md:order-1 md:block" />
 
         <div class="md:order-2">
           <div class="text-[13px] font-semibold uppercase tracking-[0.14em] text-accent">
@@ -18,8 +18,8 @@ import { telHref } from '@/lib/contacts';
           </div>
           <h2 class="mt-2.5 text-[clamp(26px,3.4vw,38px)] font-extrabold">{site.masterName}</h2>
 
-          {/* Фото-коллаж — мобилка, под фразой «О мастере» */}
-          <MasterCollage class="mx-auto mt-6 w-full max-w-[300px] md:hidden" />
+          {/* Галерея фото мастера — мобилка, под фразой «О мастере» */}
+          <MasterGallery class="mx-auto mt-6 w-full max-w-[300px] md:hidden" />
 
           {site.about && <p class="mt-6 max-w-[40em] text-[17px] text-muted">{site.about}</p>}
           <div class="mt-6 flex flex-wrap gap-3">
