@@ -13,10 +13,21 @@ export function projectView(project: CollectionEntry<'projects'>) {
   const isCompare = !!(d.beforeImage && d.afterImage);
   const cover = d.cover || d.afterImage || d.gallery?.[0]?.src;
 
-  const gallery: ProjectImage[] = [];
-  if (cover) gallery.push({ src: cover, alt: d.title });
-  for (const g of d.gallery ?? []) {
-    if (g.src !== cover) gallery.push({ src: g.src, alt: g.alt || d.title });
+  // Доп. фото из CMS-галереи (этапы, детали)
+  const extras: ProjectImage[] = (d.gallery ?? []).map((g) => ({ src: g.src, alt: g.alt || d.title }));
+
+  // Галерея кейса. Для «до/после»-проектов кадры ДО и ПОСЛЕ добавляются
+  // в галерею автоматически — дублировать их в CMS-галерее не нужно.
+  let gallery: ProjectImage[];
+  if (d.beforeImage && d.afterImage) {
+    gallery = [
+      { src: d.beforeImage, alt: `${d.title} — до ремонта` },
+      { src: d.afterImage, alt: `${d.title} — после ремонта` },
+      ...extras,
+    ];
+  } else {
+    gallery = cover ? [{ src: cover, alt: d.title }] : [];
+    for (const g of extras) if (g.src !== cover) gallery.push(g);
   }
 
   const href = `/portfolio/${project.id}/`;

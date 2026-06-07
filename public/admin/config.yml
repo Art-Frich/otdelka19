@@ -20,6 +20,17 @@ locale: ru
 media_folder: 'public/img/uploads'
 public_folder: '/img/uploads'
 
+# Авто-оптимизация ВСЕХ загружаемых картинок: конвертация в WebP + ресайз до 1920px.
+media_library:
+  config:
+    max_file_size: 12582912 # 12 МБ
+    transformations:
+      raster_image:
+        format: webp
+        quality: 80
+        width: 1920
+        height: 1920
+
 collections:
   - name: projects
     label: 'Кейсы портфолио'
@@ -30,6 +41,9 @@ collections:
     slug: '{{slug}}'
     extension: md
     format: frontmatter
+    # Фото кейса грузятся в папку именно этого проекта (а не в общий uploads)
+    media_folder: '/public/img/projects/{{slug}}'
+    public_folder: '/img/projects/{{slug}}'
     sortable_fields: ['order', 'publishDate', 'title']
     fields:
       - { name: title, label: 'Заголовок (объект)', widget: string, hint: 'Напр.: 2-комнатная квартира' }
@@ -43,10 +57,17 @@ collections:
       - { name: area, label: 'Площадь, м²', widget: number, required: false, value_type: int, min: 1 }
       - { name: district, label: 'Район / адрес', widget: string, required: false }
       - { name: duration, label: 'Сроки (напр.: 45 дней)', widget: string, required: false }
-      - { name: beforeImage, label: 'Фото ДО', widget: image, required: false }
+      - {
+          name: cover,
+          label: 'Обложка карточки',
+          widget: image,
+          required: false,
+          hint: 'Главное фото в сетке портфолио. Если пусто — берётся «Фото ПОСЛЕ» или первое из галереи.',
+        }
+      - { name: beforeImage, label: 'Фото ДО (для слайдера)', widget: image, required: false }
       - {
           name: afterImage,
-          label: 'Фото ПОСЛЕ (оно же обложка)',
+          label: 'Фото ПОСЛЕ (для слайдера)',
           widget: image,
           required: false,
         }
@@ -54,6 +75,7 @@ collections:
         label: 'Галерея (доп. фото)'
         widget: list
         required: false
+        hint: 'Дополнительные фото объекта: этапы, детали. Фото ДО и ПОСЛЕ сюда добавлять НЕ нужно — они автоматически попадают в галерею кейса.'
         fields:
           - { name: src, label: 'Фото', widget: image }
           - { name: alt, label: 'Подпись', widget: string, required: false }
@@ -173,6 +195,7 @@ collections:
               - {
                   name: ogImage,
                   label: 'Картинка-превью ссылки',
-                  widget: string,
-                  hint: 'Показывается при отправке ссылки в Telegram/WhatsApp/соцсети. Путь к картинке 1200×630, напр. /og.jpg.',
+                  widget: image,
+                  required: false,
+                  hint: 'Показывается при отправке ссылки в Telegram/WhatsApp/соцсети. Загрузите картинку ~1200×630 — путь подставится сам, вручную ничего писать не нужно.',
                 }
