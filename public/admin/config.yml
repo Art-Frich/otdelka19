@@ -112,16 +112,17 @@ collections:
           - { name: workingHours, label: 'Часы работы', widget: string }
           - {
               name: areaServed,
-              label: 'География (города)',
+              label: 'География работы (первый город — основной)',
               widget: list,
-              hint: 'Первый город в списке — основной: он используется как город мастера в SEO-разметке (адрес).',
+              hint: 'Первый город в списке отображается как город мастера в адресе и SEO-разметке (Schema).',
               field: { name: city, label: 'Город', widget: string },
             }
           - {
               name: priceUrl,
-              label: 'Ссылка на прайс (гугл-таблица) — необязательно',
+              label: 'Ссылка на прайс',
               widget: string,
               required: false,
+              hint: 'Любая ссылка: таблица, PDF или страница. Пусто — блок прайса скрыт.',
             }
           - name: hero
             label: 'Первый экран'
