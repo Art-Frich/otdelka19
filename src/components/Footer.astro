@@ -5,7 +5,7 @@ import CreatedBy from '@/components/CreatedBy.astro';
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-border">
+<footer class="relative z-0 border-t border-border bg-bg shadow-[0_-28px_56px_-28px_rgba(0,0,0,0.12)]">
   <div class="container-x py-9">
     <div class="flex flex-wrap items-center justify-between gap-4 text-sm text-muted">
       <div>© {year} {site.brand}{site.slogan ? ` — ${site.slogan}` : ''}</div>
